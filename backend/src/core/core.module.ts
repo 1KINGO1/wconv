@@ -4,6 +4,9 @@ import {ConfigModule} from '@nestjs/config';
 import {AuthModule} from '../modules/auth/auth.module';
 import {UserModule} from '../modules/user/user.module';
 import { TokenModule } from '../modules/auth/token/token.module';
+import { ConversionModule } from '../modules/conversion/conversion.module';
+import { StorageModule } from '../modules/libs/storage/storage.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -12,6 +15,9 @@ import { TokenModule } from '../modules/auth/token/token.module';
     AuthModule,
     UserModule,
     TokenModule,
+    ConversionModule,
+    StorageModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],

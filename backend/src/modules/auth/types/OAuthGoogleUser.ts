@@ -4,4 +4,5 @@ export interface OAuthGoogleUser {
   firstName: string;
   picture: string;
   accessToken: string;
+  returnUrl: string;
 }

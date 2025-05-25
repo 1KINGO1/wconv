@@ -59,10 +59,7 @@ export class AuthService {
     const tokens = await this.tokenService.issueTokenPair({ id: user.id });
     this.attachRefreshTokenCookie(res, tokens.refreshToken)
 
-    return {
-      user,
-      tokens,
-    };
+    res.redirect(googleOAuthUser.returnUrl);
   }
   async refresh(req: Request) {
     const refreshToken = req.cookies[this.REFRESH_TOKEN_COOKIE_NAME];

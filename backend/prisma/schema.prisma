@@ -15,7 +15,7 @@ model User {
   displayName String  @map("display_name")
   avatarUrl   String? @map("avatar_url")
 
-  convertations Convertation[]
+  convertations Conversion[]
   links         UserLink[]
   credentials   UserCredential[]
 
@@ -58,15 +58,15 @@ model UserLink {
   @@map("user_links")
 }
 
-model Convertation {
+model Conversion {
   id String @id @default(uuid())
 
-  state       ConvertationState @default(PENDING)
-  fileFromUrl String            @map("file_from_url")
-  fileToUrl   String?           @map("file_to_url")
+  state       ConversionState @default(PENDING)
+  fileFromUrl String          @map("file_from_url")
+  fileToUrl   String?         @map("file_to_url")
 
-  schema   ConvertationSchema @relation(fields: [schemaId], references: [id])
-  schemaId Int                @map("schema_id")
+  schema   ConversionSchema @relation(fields: [schemaId], references: [id])
+  schemaId Int              @map("schema_id")
 
   user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
@@ -74,41 +74,41 @@ model Convertation {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("converts")
+  @@map("conversions")
 }
 
-model ConvertationSchema {
+model ConversionSchema {
   id Int @id @default(autoincrement())
 
-  fileFromFormat       ConvertationFormat @map("file_from_format")
-  fileToFormat         ConvertationFormat @map("file_to_format")
-  convertationEndpoint String             @map("convertation_endpoint")
+  fileFromFormat       ConversionFormat @map("file_from_format")
+  fileToFormat         ConversionFormat @map("file_to_format")
+  convertationEndpoint String           @map("convertation_endpoint")
 
-  convertations Convertation[]
+  convertations Conversion[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("convertation_schema")
+  @@map("conversion_schemas")
 }
 
 enum UserLinkProvider {
   GOOGLE
 
-  @@map("user_link_provider")
+  @@map("user_link_providers")
 }
 
-enum ConvertationState {
+enum ConversionState {
   PENDING
   SUCCESS
   FAILED
 
-  @@map("convertation_states")
+  @@map("conversion_states")
 }
 
-enum ConvertationFormat {
+enum ConversionFormat {
   PDF
   JPG
 
-  @@map("convertation_formats")
+  @@map("conversion_formats")
 }

@@ -1,0 +1,45 @@
+import {
+  Controller,
+  FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  Post,
+  Res,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ConversionService } from './conversion.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { Auth } from '../../shared/decorators/auth.decorator';
+
+const MB_SIZE = 1000000;
+
+@Controller('conversion')
+export class ConversionController {
+  constructor(private readonly conversionService: ConversionService) {}
+
+  // @Auth()
+  @Post('convert/jpg-to-png')
+  @UseInterceptors(FileInterceptor('file'))
+  async convert(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: MB_SIZE * 100 }),
+          new FileTypeValidator({ fileType: /image\/jpe?g/ }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    return this.conversionService.convertJpgToPng(file);
+  }
+
+  @Get('files/:key')
+  async getFile(@Param('key') key: string, @Res() res: Response) {
+    await this.conversionService.streamFileByName(key, res);
+  }
+}

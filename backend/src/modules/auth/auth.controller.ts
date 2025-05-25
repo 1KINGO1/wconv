@@ -1,6 +1,14 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import {RegisterDto} from './dto/register.dto';
+import { RegisterDto } from './dto/register.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { OAuthGoogleUser } from './types/OAuthGoogleUser';
@@ -22,7 +30,10 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() registerDto: RegisterDto, @Res({passthrough: true}) res: Response) {
+  async register(
+    @Body() registerDto: RegisterDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
     return this.authService.registerWithCredentials(res, registerDto);
   }
 
@@ -32,7 +43,10 @@ export class AuthController {
 
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req: Request & {user: OAuthGoogleUser}, @Res({passthrough: true}) res: Response) {
-    return this.authService.registerWithGoogleOAuth(res, req.user)
+  async googleAuthRedirect(
+    @Req() req: Request & { user: OAuthGoogleUser },
+    @Res() res: Response,
+  ) {
+    await this.authService.registerWithGoogleOAuth(res, req.user);
   }
 }
