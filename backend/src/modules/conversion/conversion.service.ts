@@ -3,6 +3,12 @@ import { StorageService } from '../libs/storage/storage.service';
 import { Response } from 'express';
 import { Readable } from 'stream';
 import { ConfigService } from '@nestjs/config';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
+import { PrismaService } from '../../core/prisma/prisma.service';
+import { ConversionFormat, ConversionState, User } from 'prisma/generated';
+import { JobPayload } from './types/job-payload';
+import { JobType } from './types/job-type.enum';
 
 @Injectable()
 export class ConversionService {
@@ -10,15 +16,35 @@ export class ConversionService {
 
   constructor(
     private readonly storageService: StorageService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly prismaService: PrismaService,
+    @InjectQueue('conversion') private readonly conversionQueue: Queue
   ) {
     this.S3_FILES_FOLDER_PREFIX = this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
   }
 
-  async convertJpgToPng(file: Express.Multer.File) {
+  async convertJpgToPng(file: Express.Multer.File, user: User) {
     const fileName = await this.uploadFileToS3(file);
 
+    const conversion = await this.prismaService.conversion.create({
+      data: {
+        state: ConversionState.PENDING,
+        fileFromName: fileName,
+        fileFromFormat: ConversionFormat.JPG,
+        fileToFormat: ConversionFormat.PNG,
+        userId: user.id
+      }
+    })
+
+    const payload: JobPayload = {
+      fileName: fileName,
+      conversionId: conversion.id,
+      userId: user.id,
+    }
+    await this.conversionQueue.add(JobType.JPG_TO_PNG, payload);
+
     return {
+      conversion,
       fileName,
       url: this.configService.getOrThrow<string>("APPLICATION_URL") + `/api/conversion/files/${fileName}`,
     }
@@ -35,12 +61,8 @@ export class ConversionService {
         'Last-Modified': response.LastModified.toISOString(),
       });
 
-      if (response.Body instanceof Readable) {
-        response.Body.pipe(res);
-      } else {
-        const readable = Readable.from(response.Body as unknown as Uint8Array);
-        readable.pipe(res);
-      }
+      const readable = this.storageService.readResponseIntoReadable(response);
+      readable.pipe(res);
     } catch (e) {
       if (e.hasOwnProperty('Code') && e['Code'] === 'NoSuchKey') {
         throw new NotFoundException('File not found');
@@ -49,15 +71,18 @@ export class ConversionService {
     }
   }
 
+  generateFileName(originalName: string) {
+    return `${Date.now()}-${originalName}`;
+  }
+  generateS3Key(fileName: string) {
+    return this.S3_FILES_FOLDER_PREFIX + fileName;
+  }
+
   private async uploadFileToS3(file: Express.Multer.File) {
     const fileName = this.generateFileName(file.originalname);
-    const s3Key = this.S3_FILES_FOLDER_PREFIX + fileName;
+    const s3Key = this.generateS3Key(fileName);
     await this.storageService.upload(file.buffer, s3Key, file.mimetype);
 
     return fileName;
-  }
-
-  private generateFileName(originalName: string) {
-    return `${Date.now()}-${originalName}`;
   }
 }

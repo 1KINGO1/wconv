@@ -61,12 +61,12 @@ model UserLink {
 model Conversion {
   id String @id @default(uuid())
 
-  state       ConversionState @default(PENDING)
-  fileFromUrl String          @map("file_from_url")
-  fileToUrl   String?         @map("file_to_url")
+  state        ConversionState @default(PENDING)
+  fileFromName String          @map("file_from_name")
+  fileToName   String?         @map("file_to_name")
 
-  schema   ConversionSchema @relation(fields: [schemaId], references: [id])
-  schemaId Int              @map("schema_id")
+  fileFromFormat ConversionFormat  @map("file_from_format")
+  fileToFormat   ConversionFormat? @map("file_to_format")
 
   user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
@@ -75,21 +75,6 @@ model Conversion {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("conversions")
-}
-
-model ConversionSchema {
-  id Int @id @default(autoincrement())
-
-  fileFromFormat       ConversionFormat @map("file_from_format")
-  fileToFormat         ConversionFormat @map("file_to_format")
-  convertationEndpoint String           @map("convertation_endpoint")
-
-  convertations Conversion[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("conversion_schemas")
 }
 
 enum UserLinkProvider {
@@ -108,6 +93,7 @@ enum ConversionState {
 
 enum ConversionFormat {
   PDF
+  PNG
   JPG
 
   @@map("conversion_formats")

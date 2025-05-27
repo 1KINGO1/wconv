@@ -3,10 +3,11 @@ import {
   PutObjectCommand,
   PutObjectCommandInput,
   GetObjectCommandInput,
-  S3Client,
+  S3Client, GetObjectCommandOutput,
 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Readable } from 'stream';
 
 @Injectable()
 export class StorageService {
@@ -41,7 +42,6 @@ export class StorageService {
       throw error;
     }
   }
-
   async read(key: string) {
     const command: GetObjectCommandInput = {
       Bucket: this.bucketName,
@@ -53,6 +53,14 @@ export class StorageService {
       return response;
     } catch (error) {
       throw error;
+    }
+  }
+
+  readResponseIntoReadable(output: GetObjectCommandOutput): Readable {
+    if (output.Body instanceof Readable) {
+      return output.Body
+    } else {
+      return Readable.from(output.Body as unknown as Uint8Array);
     }
   }
 }

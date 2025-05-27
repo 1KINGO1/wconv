@@ -5,14 +5,14 @@ import {
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
-  Post,
+  Post, Req,
   Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { ConversionService } from './conversion.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { Auth } from '../../shared/decorators/auth.decorator';
 
 const MB_SIZE = 1000000;
@@ -21,7 +21,7 @@ const MB_SIZE = 1000000;
 export class ConversionController {
   constructor(private readonly conversionService: ConversionService) {}
 
-  // @Auth()
+  @Auth()
   @Post('convert/jpg-to-png')
   @UseInterceptors(FileInterceptor('file'))
   async convert(
@@ -34,8 +34,9 @@ export class ConversionController {
       }),
     )
     file: Express.Multer.File,
+    @Req() req: Request
   ) {
-    return this.conversionService.convertJpgToPng(file);
+    return this.conversionService.convertJpgToPng(file, req.user);
   }
 
   @Get('files/:key')
