@@ -8,7 +8,9 @@ import { ConversionState } from 'prisma/generated';
 import * as sharp from 'sharp';
 import { streamToBuffer } from '../../../shared/utils/stream-to-buffer';
 import { ConversionService } from '../conversion.service';
-import { WebsocketGateway } from '../../websocket/websocket.gateway';
+import { RedisGatewayWebhookMessageBody } from '../../../shared/constants/redis-gateway-event-bodies';
+import { RedisService } from 'src/core/redis/redis.service';
+import { RedisGatewayEvents } from '../../../shared/constants/redis-gateway-events.enum';
 
 @Processor('conversion')
 export class ConversionProcessor extends WorkerHost {
@@ -18,7 +20,7 @@ export class ConversionProcessor extends WorkerHost {
     private readonly storageService: StorageService,
     private readonly prismaService: PrismaService,
     private readonly conversionService: ConversionService,
-    private readonly webSocketGateway: WebsocketGateway,
+    private readonly redisService: RedisService,
   ) {
     super();
   }
@@ -58,10 +60,16 @@ export class ConversionProcessor extends WorkerHost {
         }
       });
 
-      this.webSocketGateway.emitToUser(job.data.userId, this.CONVERSION_STATE_CHANGE_EVENT_NAME, {
-        conversion: updatedConversion,
-        state: ConversionState.SUCCESS,
-      })
+      const body: RedisGatewayWebhookMessageBody = {
+        userId: job.data.userId,
+        eventName: this.CONVERSION_STATE_CHANGE_EVENT_NAME,
+        body: {
+          conversion: updatedConversion,
+          state: ConversionState.SUCCESS,
+        }
+      }
+
+      await this.redisService.publish(RedisGatewayEvents.WEBSOCKET_MESSAGE, JSON.stringify(body));
     } catch (e) {
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
@@ -72,10 +80,16 @@ export class ConversionProcessor extends WorkerHost {
         }
       })
 
-      this.webSocketGateway.emitToUser(job.data.userId, this.CONVERSION_STATE_CHANGE_EVENT_NAME, {
-        conversion: updatedConversion,
-        state: ConversionState.SUCCESS,
-      })
+      const body: RedisGatewayWebhookMessageBody = {
+        userId: job.data.userId,
+        eventName: this.CONVERSION_STATE_CHANGE_EVENT_NAME,
+        body: {
+          conversion: updatedConversion,
+          state: ConversionState.FAILED,
+        }
+      }
+
+      await this.redisService.publish(RedisGatewayEvents.WEBSOCKET_MESSAGE, JSON.stringify(body));
     }
   }
 }

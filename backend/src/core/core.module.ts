@@ -10,6 +10,7 @@ import { RedisModule } from './redis/redis.module';
 import { BullModule } from '@nestjs/bullmq';
 import { RedisService } from './redis/redis.service';
 import { WebsocketModule } from '../modules/websocket/websocket.module';
+import { RedisGatewayModule } from '../modules/redis-gateway/redis-gateway.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { WebsocketModule } from '../modules/websocket/websocket.module';
       }
     }),
     WebsocketModule,
+    RedisGatewayModule
   ],
 })
 export class CoreModule {}
