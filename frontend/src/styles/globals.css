@@ -1,0 +1,70 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
+
+@layer theme {
+    :root {
+        --background: #FFFFFF;
+        --surface: #F8F9FA;
+
+        --primary-text: #212529;
+        --secondary-text: #6C757D;
+
+        --borders: #DEE2E6;
+
+        --primary: #2F80ED;
+        --primary-hover: #1C6DD0;
+        --primary-light: #EAF1FD;
+
+        --success: #27AE60;
+        --error: #EB5757;
+        --warning: #F2994A;
+        --info: #56CCF2;
+
+        --input-background: #FFFFFF;
+        --input-border: #CED4DA;
+        --input-focus: #2F80ED;
+    }
+
+    .dark {}
+}
+
+@theme {
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+
+    --color-primary-text: var(--primary-text);
+    --color-secondary-text: var(--secondary-text);
+
+    --color-borders: var(--borders);
+    --color-accent-foreground: var(--background);
+
+    --color-primary: var(--primary);
+    --color-primary-hover: var(--primary-hover);
+    --color-primary-light: var(--primary-light);
+
+    --color-success: var(--success);
+    --color-error: var(--error);
+    --color-warning: var(--warning);
+    --color-info: var(--info);
+
+    --color-input-background: var(--input-background);
+    --color-input-border: var(--input-border);
+    --color-input-focus: var(--input-focus);
+}
+
+@layer base {
+    * {
+        @apply text-primary-text;
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply overscroll-none bg-background;
+
+        font-family: var(--font-geist-sans), sans-serif;
+        height: 100vh;
+    }
+}
