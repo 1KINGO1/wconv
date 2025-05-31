@@ -1,9 +1,14 @@
+'use client'
+
 import {AuthWrapper} from '@/features/auth/AuthWrapper';
-import { Input } from '@/shared/components/ui/input';
+import {Input} from '@/shared/components/ui/input';
 import {Button} from '@/shared/components/ui/button';
 import {Separator} from '@/shared/components/ui/separator';
+import { useCurrentUser } from '@/shared/hooks/useCurrentUser';
 
 export function LoginForm() {
+	useCurrentUser();
+
 	return (
 		<AuthWrapper
 			header="Welcome Back"
@@ -17,7 +22,7 @@ export function LoginForm() {
 					<Input placeholder="Password"/>
 					<Button className="w-full text-base">Log In</Button>
 				</form>
-				<Separator />
+				<Separator/>
 				<Button variant="outline">Log In with Google</Button>
 			</div>
 		</AuthWrapper>

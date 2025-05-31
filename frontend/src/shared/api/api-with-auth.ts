@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {URLS} from '@/shared/constants/urls';
-import {api} from '@/shared/api/api';
+import {refreshService} from '@/shared/services/refresh.service';
 
 const ACCESS_TOKEN_KEY = 'access_token';
 
@@ -14,6 +14,7 @@ function setAccessToken(accessToken: string) {
 
 export const apiWithAuth = axios.create({
 	baseURL: URLS.baseUrl,
+	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json',
 	},
@@ -66,11 +67,8 @@ apiWithAuth.interceptors.response.use(
 			isRefreshing = true;
 
 			try {
-				const response = await api.post('/auth/refresh', {}, {
-					withCredentials: true,
-				});
-
-				const newAccessToken = response.data.access_token;
+				const response = await refreshService.refresh();
+				const newAccessToken = response.data.accessToken;
 
 				setAccessToken(
 					newAccessToken

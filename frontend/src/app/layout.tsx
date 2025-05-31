@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {Roboto} from "next/font/google";
 import "../styles/globals.css";
+import {QueryProvider} from '@/providers/QueryProvider';
 
 const roboto = Roboto({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -25,7 +26,9 @@ export default function RootLayout({
 		<body
 			className={`${roboto.variable} antialiased`}
 		>
-		{children}
+		<QueryProvider>
+			{children}
+		</QueryProvider>
 		</body>
 		</html>
 	);
