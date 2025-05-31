@@ -3,6 +3,7 @@ import { CoreModule } from './core/core.module';
 import {ValidationPipe} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import * as cookieParser from 'cookie-parser';
+import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(CoreModule);
@@ -15,6 +16,11 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     transform: true
   }));
+
+  app.use(cors({
+    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    credentials: true
+  }))
 
   await app.listen(configurationService.getOrThrow<number>('PORT'));
 }
