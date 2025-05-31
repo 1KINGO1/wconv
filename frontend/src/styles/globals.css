@@ -1,70 +1,143 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
-@layer theme {
-    :root {
-        --background: #FFFFFF;
-        --surface: #F8F9FA;
+@custom-variant dark (&:is(.dark *));
 
-        --primary-text: #212529;
-        --secondary-text: #6C757D;
-
-        --borders: #DEE2E6;
-
-        --primary: #2F80ED;
-        --primary-hover: #1C6DD0;
-        --primary-light: #EAF1FD;
-
-        --success: #27AE60;
-        --error: #EB5757;
-        --warning: #F2994A;
-        --info: #56CCF2;
-
-        --input-background: #FFFFFF;
-        --input-border: #CED4DA;
-        --input-focus: #2F80ED;
-    }
-
-    .dark {}
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-roboto: var(--font-roboto);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-success: var(--success);
+  --color-failed: var(--failed);
+  --color-pending: var(--pending);
 }
 
-@theme {
-    --color-background: var(--background);
-    --color-surface: var(--surface);
+:root {
+  --radius: 0.625rem;
+  --background: #FFFFFF; /* білий */
+  --foreground: #000000; /* чорний */
+  --card: #FFFFFF; /* білий */
+  --card-foreground: #000000; /* чорний */
+  --popover: #FFFFFF; /* білий */
+  --popover-foreground: #000000; /* чорний */
+  --primary: #212529; /* темний відтінок чорного для кнопок */
+  --primary-foreground: #FFFFFF; /* білий для тексту на кнопках */
+  --secondary: #6C757D; /* сірий для другорядних елементів */
+  --secondary-foreground: #FFFFFF; /* білий */
+  --muted: #F8F9FA; /* дуже світлий сірий для приглушених елементів */
+  --muted-foreground: #6C757D; /* сірий */
+  --accent: #ADB5BD; /* зелений для акцентів */
+  --accent-foreground: #FFFFFF; /* білий */
+  --destructive: #DC3545; /* червоний для руйнівних дій */
+  --border: #E9ECEF; /* світлий сірий для меж */
+  --input: #E9ECEF; /* світлий сірий для полів введення */
+  --ring: #ADB5BD; /* сірий для контурів фокусу */
+  --chart-1: #212529; /* темний відтінок чорного */
+  --chart-2: #28A745; /* зелений */
+  --chart-3: #FFC107; /* жовтий */
+  --chart-4: #DC3545; /* червоний */
+  --chart-5: #6C757D; /* сірий */
+  --sidebar: #FFFFFF; /* білий */
+  --sidebar-foreground: #000000; /* чорний */
+  --sidebar-primary: #212529; /* темний відтінок чорного для кнопок у бічній панелі */
+  --sidebar-primary-foreground: #FFFFFF; /* білий */
+  --sidebar-accent: #28A745; /* зелений */
+  --sidebar-accent-foreground: #FFFFFF; /* білий */
+  --sidebar-border: #E9ECEF; /* світлий сірий */
+  --sidebar-ring: #ADB5BD; /* сірий */
+  --success: #065f46;
+  --failed: #991b1b;
+  --pending: #1e3a8a;
+}
 
-    --color-primary-text: var(--primary-text);
-    --color-secondary-text: var(--secondary-text);
-
-    --color-borders: var(--borders);
-    --color-accent-foreground: var(--background);
-
-    --color-primary: var(--primary);
-    --color-primary-hover: var(--primary-hover);
-    --color-primary-light: var(--primary-light);
-
-    --color-success: var(--success);
-    --color-error: var(--error);
-    --color-warning: var(--warning);
-    --color-info: var(--info);
-
-    --color-input-background: var(--input-background);
-    --color-input-border: var(--input-border);
-    --color-input-focus: var(--input-focus);
+.dark {
+  --background: #000000; /* чорний */
+  --foreground: #FFFFFF; /* білий */
+  --card: #000000; /* чорний */
+  --card-foreground: #FFFFFF; /* білий */
+  --popover: #000000; /* чорний */
+  --popover-foreground: #FFFFFF; /* білий */
+  --primary: #212529; /* темний відтінок чорного для кнопок */
+  --primary-foreground: #FFFFFF; /* білий для тексту на кнопках */
+  --secondary: #6C757D; /* сірий для другорядних елементів */
+  --secondary-foreground: #FFFFFF; /* білий */
+  --muted: #343A40; /* темний сірий для приглушених елементів */
+  --muted-foreground: #ADB5BD; /* світлий сірий */
+  --accent: #ADB5BD; /* жовтий для акцентів */
+  --accent-foreground: #000000; /* чорний */
+  --destructive: #DC3545; /* червоний для руйнівних дій */
+  --border: #343A40; /* темний сірий для меж */
+  --input: #343A40; /* темний сірий для полів введення */
+  --ring: #ADB5BD; /* світлий сірий для контурів фокусу */
+  --chart-1: #212529; /* темний відтінок чорного */
+  --chart-2: #FFC107; /* жовтий */
+  --chart-3: #28A745; /* зелений */
+  --chart-4: #DC3545; /* червоний */
+  --chart-5: #6C757D; /* сірий */
+  --sidebar: #000000; /* чорний */
+  --sidebar-foreground: #FFFFFF; /* білий */
+  --sidebar-primary: #212529; /* темний відтінок чорного */
+  --sidebar-primary-foreground: #FFFFFF; /* білий */
+  --sidebar-accent: #FFC107; /* жовтий */
+  --sidebar-accent-foreground: #000000; /* чорний */
+  --sidebar-border: #343A40; /* темний сірий */
+  --sidebar-ring: #ADB5BD; /* світлий сірий */
 }
 
 @layer base {
-    * {
-        @apply text-primary-text;
-    }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
 
-    html {
-        @apply scroll-smooth;
-    }
+    font-family: var(--font-roboto), sans-serif;
+    height: 100vh;
+  }
 
-    body {
-        @apply overscroll-none bg-background;
-
-        font-family: var(--font-geist-sans), sans-serif;
-        height: 100vh;
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0deg);
     }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rotating {
+    animation: rotate360 2s linear infinite;
+  }
+
 }

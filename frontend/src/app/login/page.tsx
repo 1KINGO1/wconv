@@ -1,7 +1,5 @@
-export default function Page() {
-	return (
-		<h1>
-			Login Page
-		</h1>
-	)
+import {LoginForm} from '@/features/auth/forms/LoginForm';
+
+export default function Page(){
+	return <LoginForm />;
 }
