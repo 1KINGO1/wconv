@@ -1,13 +1,15 @@
-import {MimeType} from '@/shared/types/mimetype.enum';
-import {ConversionFormat} from '@/shared/types/conversion-format.enum';
+import {MimeType} from '@/shared/constants/mimetype';
+import {ConversionFormat} from '@/shared/constants/conversion-format';
 import {FC} from 'react';
+import {SimpleConversionForm} from '@/features/conversion/forms/SimpleConversionForm';
 
 export interface SupportedConversion {
 	fileFromMimetype: MimeType,
 	fileFromType: ConversionFormat,
 	fileToMimetype: MimeType,
 	fileToType: ConversionFormat,
-	Form: FC,
+	path: string,
+	Form: (file: File, path: string) => FC,
 }
 
 export const supportedConversions: SupportedConversion[] = [
@@ -16,12 +18,13 @@ export const supportedConversions: SupportedConversion[] = [
 		fileFromType: ConversionFormat.JPG,
 		fileToMimetype: MimeType.PNG,
 		fileToType: ConversionFormat.PNG,
-		Form: FormElement
+		path: 'jpg-to-png',
+		Form: SimpleConversionForm,
 	}
 ]
 
 function FormElement(){
-	return (
+	return () => (
 		<><h1>test test</h1></>
 	)
 }

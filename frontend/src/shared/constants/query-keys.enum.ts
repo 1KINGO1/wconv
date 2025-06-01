@@ -1,3 +1,0 @@
-export enum QUERY_KEYS {
-	CURRENT_USER = "CURRENT_USER",
-}

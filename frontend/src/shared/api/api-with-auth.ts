@@ -1,19 +1,10 @@
 import axios from 'axios';
-import {URLS} from '@/shared/constants/urls';
+import {Urls} from '@/shared/constants/urls';
 import {refreshService} from '@/shared/services/refresh.service';
-
-const ACCESS_TOKEN_KEY = 'access_token';
-
-function getAccessToken() {
-	return localStorage.getItem(ACCESS_TOKEN_KEY);
-}
-
-function setAccessToken(accessToken: string) {
-	return localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-}
+import {accessTokenService} from '@/shared/services/access-token.service';
 
 export const apiWithAuth = axios.create({
-	baseURL: URLS.baseUrl,
+	baseURL: Urls.baseUrl,
 	withCredentials: true,
 	headers: {
 		'Content-Type': 'application/json',
@@ -22,7 +13,7 @@ export const apiWithAuth = axios.create({
 
 apiWithAuth.interceptors.request.use(
 	(config) => {
-		const token = getAccessToken();
+		const token = accessTokenService.getAccessToken();
 		if (token) {
 			config.headers.Authorization = `Bearer ${token}`;
 		}
@@ -70,7 +61,7 @@ apiWithAuth.interceptors.response.use(
 				const response = await refreshService.refresh();
 				const newAccessToken = response.data.accessToken;
 
-				setAccessToken(
+				accessTokenService.setAccessToken(
 					newAccessToken
 				)
 
@@ -82,7 +73,7 @@ apiWithAuth.interceptors.response.use(
 			} catch (err) {
 				processQueue(err as Error, null);
 
-				// logout
+				await refreshService.logoutOnFailure();
 
 				return Promise.reject(err);
 			} finally {

@@ -1,11 +1,15 @@
 import {api} from '@/shared/api/api';
-import {URLS} from '@/shared/constants/urls';
+import {Urls} from '@/shared/constants/urls';
 
 class RefreshService {
 	async refresh() {
-		return api.post(URLS.refresh, {}, {
+		return api.post(Urls.refresh, {}, {
 			withCredentials: true,
 		});
+	}
+
+	async logoutOnFailure(){
+		return api.post(Urls.logout);
 	}
 }
 

@@ -1,6 +1,6 @@
 import {ConversionItem} from '@/features/conversion/ConversionItem';
-import {ConversionState} from '@/shared/types/conversion-state.enum';
-import {ConversionFormat} from '@/shared/types/conversion-format.enum';
+import {ConversionState} from '@/shared/constants/conversion-state';
+import {ConversionFormat} from '@/shared/constants/conversion-format';
 
 export function RecentConversions() {
 	return (

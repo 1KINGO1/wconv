@@ -48,10 +48,33 @@ export class UserService {
 			throw new InternalServerErrorException('Could not create user');
 		}
 	}
-  async getByUsername(username: string){
+  async getByUsername(username: string, withCredentials = false){
     const user = await this.prismaService.user.findUnique({
       where: {
-        username
+        username,
+      }
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+  async dangerGetByUsernameWithCredentials(username: string){
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        username,
+      },
+      include: {
+        credentials: {
+          where: {
+            isActive: true
+          },
+          select: {
+            passwordHash: true
+          }
+        }
       }
     });
 

@@ -1,12 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { RegisterDto } from './dto/register.dto';
-import { hash } from 'argon2';
+import { hash, verify } from 'argon2';
 import { OAuthGoogleUser } from './types/OAuthGoogleUser';
-import { User, UserLinkProvider } from 'prisma/generated';
+import { User, UserCredential, UserLinkProvider } from 'prisma/generated';
 import { TokenService } from './token/token.service';
 import { Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -79,11 +80,39 @@ export class AuthService {
       throw new UnauthorizedException()
     }
   }
+  async login(res: Response, loginDto: LoginDto){
+    let user: User & { credentials: { passwordHash: string }[] };
+
+    try {
+      user = await this.userService.dangerGetByUsernameWithCredentials(loginDto.username);
+    }catch (e) {
+      throw new UnauthorizedException('User not found')
+    }
+
+    const userCredential = user.credentials[0];
+    const hashMatch = await verify(userCredential.passwordHash, loginDto.password);
+    if (!hashMatch) {
+      throw new UnauthorizedException('Invalid Credentials');
+    }
+
+    const tokens = await this.tokenService.issueTokenPair({ id: user.id });
+    this.attachRefreshTokenCookie(res, tokens.refreshToken)
+
+    delete user.credentials;
+
+    return {
+      user,
+      tokens,
+    };
+  }
+
   logout(res: Response) {
+
     res.cookie(this.REFRESH_TOKEN_COOKIE_NAME, '', {
       expires: new Date(Date.now()),
       httpOnly: true,
     })
+    return {ok: true}
   }
 
   private attachRefreshTokenCookie(res: Response, refreshToken: string) {

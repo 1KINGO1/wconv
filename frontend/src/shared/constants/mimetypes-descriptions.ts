@@ -1,4 +1,4 @@
-import {MimeType} from '@/shared/types/mimetype.enum';
+import {MimeType} from '@/shared/constants/mimetype';
 
 export const mimeDescriptions: Record<MimeType, string> = {
 	[MimeType.JPEG]: ".jpg and .jpeg image files",

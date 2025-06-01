@@ -12,7 +12,7 @@ import { RegisterDto } from './dto/register.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { OAuthGoogleUser } from './types/OAuthGoogleUser';
-import { Auth } from 'src/shared/decorators/auth.decorator';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,9 +23,8 @@ export class AuthController {
     return this.authService.refresh(req);
   }
 
-  @Auth()
   @Post('logout')
-  async logout(@Res() res: Response) {
+  async logout(@Res({passthrough: true}) res: Response) {
     return this.authService.logout(res);
   }
 
@@ -35,6 +34,14 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     return this.authService.registerWithCredentials(res, registerDto);
+  }
+
+  @Post('login')
+  async login(
+    @Res({ passthrough: true }) res: Response,
+    @Body() loginDto: LoginDto,
+  ) {
+    return this.authService.login(res, loginDto);
   }
 
   @Get('google')
