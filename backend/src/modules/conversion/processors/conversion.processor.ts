@@ -14,7 +14,8 @@ import { RedisGatewayEvents } from '../../../shared/constants/redis-gateway-even
 
 @Processor('conversion')
 export class ConversionProcessor extends WorkerHost {
-  private readonly CONVERSION_STATE_CHANGE_EVENT_NAME: string = 'conversion-state-update';
+  private readonly CONVERSION_STATE_CHANGE_EVENT_NAME: string =
+    'conversion-state-update';
 
   constructor(
     private readonly storageService: StorageService,
@@ -24,7 +25,6 @@ export class ConversionProcessor extends WorkerHost {
   ) {
     super();
   }
-
 
   async process(job: Job<JobPayload, any, string>): Promise<any> {
     switch (job.name) {
@@ -46,18 +46,20 @@ export class ConversionProcessor extends WorkerHost {
 
       const pngBuffer = await sharp(buffer).png().toBuffer();
 
-      const convertedFileName = `converted-` + job.data.fileName.replaceAll(/\.jpe?g$/g, '.png');
-      const convertedKey = this.conversionService.generateS3Key(convertedFileName);
+      const convertedFileName =
+        `converted-` + job.data.fileName.replaceAll(/\.jpe?g$/g, '.png');
+      const convertedKey =
+        this.conversionService.generateS3Key(convertedFileName);
       await this.storageService.upload(pngBuffer, convertedKey, 'image/png');
 
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
-          id: job.data.conversionId
+          id: job.data.conversionId,
         },
         data: {
           state: ConversionState.SUCCESS,
-          fileToName: convertedFileName
-        }
+          fileToName: convertedFileName,
+        },
       });
 
       const body: RedisGatewayWebhookMessageBody = {
@@ -66,19 +68,22 @@ export class ConversionProcessor extends WorkerHost {
         body: {
           conversion: updatedConversion,
           state: ConversionState.SUCCESS,
-        }
-      }
+        },
+      };
 
-      await this.redisService.publish(RedisGatewayEvents.WEBSOCKET_MESSAGE, JSON.stringify(body));
+      await this.redisService.publish(
+        RedisGatewayEvents.WEBSOCKET_MESSAGE,
+        JSON.stringify(body),
+      );
     } catch (e) {
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
-          id: job.data.conversionId
+          id: job.data.conversionId,
         },
         data: {
-          state: ConversionState.FAILED
-        }
-      })
+          state: ConversionState.FAILED,
+        },
+      });
 
       const body: RedisGatewayWebhookMessageBody = {
         userId: job.data.userId,
@@ -86,10 +91,13 @@ export class ConversionProcessor extends WorkerHost {
         body: {
           conversion: updatedConversion,
           state: ConversionState.FAILED,
-        }
-      }
+        },
+      };
 
-      await this.redisService.publish(RedisGatewayEvents.WEBSOCKET_MESSAGE, JSON.stringify(body));
+      await this.redisService.publish(
+        RedisGatewayEvents.WEBSOCKET_MESSAGE,
+        JSON.stringify(body),
+      );
     }
   }
 }

@@ -1,30 +1,33 @@
-import {MimeType} from '@/shared/constants/mimetype';
-import {ConversionFormat} from '@/shared/constants/conversion-format';
-import {FC} from 'react';
-import {SimpleConversionForm} from '@/features/conversion/forms/SimpleConversionForm';
+import { FC } from 'react'
+
+import { SimpleConversionForm } from '@/features/conversion/forms/SimpleConversionForm'
+import { ConversionFormat } from '@/shared/constants/conversion-format'
+import { MimeType } from '@/shared/constants/mimetype'
 
 export interface SupportedConversion {
-	fileFromMimetype: MimeType,
-	fileFromType: ConversionFormat,
-	fileToMimetype: MimeType,
-	fileToType: ConversionFormat,
-	path: string,
-	Form: (file: File, path: string) => FC,
+  fileFromMimetype: MimeType
+  fileFromType: ConversionFormat
+  fileToMimetype: MimeType
+  fileToType: ConversionFormat
+  path: string
+  Form: (file: File, path: string) => FC
 }
 
 export const supportedConversions: SupportedConversion[] = [
-	{
-		fileFromMimetype: MimeType.JPEG,
-		fileFromType: ConversionFormat.JPG,
-		fileToMimetype: MimeType.PNG,
-		fileToType: ConversionFormat.PNG,
-		path: 'jpg-to-png',
-		Form: SimpleConversionForm,
-	}
+  {
+    fileFromMimetype: MimeType.JPEG,
+    fileFromType: ConversionFormat.JPG,
+    fileToMimetype: MimeType.PNG,
+    fileToType: ConversionFormat.PNG,
+    path: 'jpg-to-png',
+    Form: SimpleConversionForm,
+  },
 ]
 
-function FormElement(){
-	return () => (
-		<><h1>test test</h1></>
-	)
+function FormElement() {
+  return () => (
+    <>
+      <h1>test test</h1>
+    </>
+  )
 }

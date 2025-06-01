@@ -1,4 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { StorageService } from '../libs/storage/storage.service';
 import { Response } from 'express';
 import { Readable } from 'stream';
@@ -18,9 +22,10 @@ export class ConversionService {
     private readonly storageService: StorageService,
     private readonly configService: ConfigService,
     private readonly prismaService: PrismaService,
-    @InjectQueue('conversion') private readonly conversionQueue: Queue
+    @InjectQueue('conversion') private readonly conversionQueue: Queue,
   ) {
-    this.S3_FILES_FOLDER_PREFIX = this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
+    this.S3_FILES_FOLDER_PREFIX =
+      this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
   }
 
   async convertJpgToPng(file: Express.Multer.File, user: User) {
@@ -32,32 +37,36 @@ export class ConversionService {
         fileFromName: fileName,
         fileFromFormat: ConversionFormat.JPG,
         fileToFormat: ConversionFormat.PNG,
-        userId: user.id
-      }
-    })
+        userId: user.id,
+      },
+    });
 
     const payload: JobPayload = {
       fileName: fileName,
       conversionId: conversion.id,
       userId: user.id,
-    }
+    };
     await this.conversionQueue.add(JobType.JPG_TO_PNG, payload);
 
     return {
       conversion,
       fileName,
-      url: this.configService.getOrThrow<string>("APPLICATION_URL") + `/api/conversion/files/${fileName}`,
-    }
+      url:
+        this.configService.getOrThrow<string>('APPLICATION_URL') +
+        `/api/conversion/files/${fileName}`,
+    };
   }
   async streamFileByName(key: string, res: Response) {
     try {
-      const response = await this.storageService.read(`${this.S3_FILES_FOLDER_PREFIX}${key}`);
+      const response = await this.storageService.read(
+        `${this.S3_FILES_FOLDER_PREFIX}${key}`,
+      );
 
       res.set({
         'Content-Type': response.ContentType,
         'Content-Length': response.ContentLength,
         'Cache-Control': 'public, max-age=3600',
-        'ETag': response.ETag,
+        ETag: response.ETag,
         'Last-Modified': response.LastModified.toISOString(),
       });
 

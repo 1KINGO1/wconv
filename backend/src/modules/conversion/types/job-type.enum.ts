@@ -1,3 +1,3 @@
 export enum JobType {
-  JPG_TO_PNG = 'jpg-to-png'
+  JPG_TO_PNG = 'jpg-to-png',
 }

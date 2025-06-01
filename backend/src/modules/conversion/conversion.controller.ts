@@ -5,7 +5,8 @@ import {
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
-  Post, Req,
+  Post,
+  Req,
   Res,
   UploadedFile,
   UseInterceptors,
@@ -34,7 +35,7 @@ export class ConversionController {
       }),
     )
     file: Express.Multer.File,
-    @Req() req: Request
+    @Req() req: Request,
   ) {
     return this.conversionService.convertJpgToPng(file, req.user);
   }

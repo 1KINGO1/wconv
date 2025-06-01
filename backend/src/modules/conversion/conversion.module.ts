@@ -12,9 +12,9 @@ import { WebsocketModule } from '../websocket/websocket.module';
   imports: [
     StorageModule,
     BullModule.registerQueue({
-      name: 'conversion'
+      name: 'conversion',
     }),
-    WebsocketModule
+    WebsocketModule,
   ],
 })
 export class ConversionModule {}

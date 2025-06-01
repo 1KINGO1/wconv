@@ -5,15 +5,15 @@ import { RedisGatewayEvents } from '../../shared/constants/redis-gateway-events.
 import { RedisGatewayWebhookMessageBody } from '../../shared/constants/redis-gateway-event-bodies';
 
 @Injectable()
-export class RedisGatewayService implements OnModuleInit{
+export class RedisGatewayService implements OnModuleInit {
   constructor(
     private readonly redisService: RedisService,
-    private readonly websocketService: WebsocketGateway
+    private readonly websocketService: WebsocketGateway,
   ) {}
-  
-  async onModuleInit(){
+
+  async onModuleInit() {
     await this.redisService.subscriber.subscribe(
-      RedisGatewayEvents.WEBSOCKET_MESSAGE
+      RedisGatewayEvents.WEBSOCKET_MESSAGE,
     );
 
     this.redisService.subscriber.on('message', (channel, message) => {
@@ -24,7 +24,7 @@ export class RedisGatewayService implements OnModuleInit{
         default:
           console.log('Unknown event', channel);
       }
-    })
+    });
   }
 
   private async handleWebsocketMessageEvent(message: string) {

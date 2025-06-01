@@ -4,6 +4,6 @@ import { WebsocketModule } from '../websocket/websocket.module';
 
 @Module({
   providers: [RedisGatewayService],
-  imports: [WebsocketModule]
+  imports: [WebsocketModule],
 })
 export class RedisGatewayModule {}

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,37 +46,37 @@
 
 :root {
   --radius: 0.625rem;
-  --background: #FFFFFF; /* білий */
+  --background: #ffffff; /* білий */
   --foreground: #000000; /* чорний */
-  --card: #FFFFFF; /* білий */
+  --card: #ffffff; /* білий */
   --card-foreground: #000000; /* чорний */
-  --popover: #FFFFFF; /* білий */
+  --popover: #ffffff; /* білий */
   --popover-foreground: #000000; /* чорний */
   --primary: #212529; /* темний відтінок чорного для кнопок */
-  --primary-foreground: #FFFFFF; /* білий для тексту на кнопках */
-  --secondary: #6C757D; /* сірий для другорядних елементів */
-  --secondary-foreground: #FFFFFF; /* білий */
-  --muted: #F8F9FA; /* дуже світлий сірий для приглушених елементів */
-  --muted-foreground: #6C757D; /* сірий */
-  --accent: #ADB5BD; /* зелений для акцентів */
-  --accent-foreground: #FFFFFF; /* білий */
-  --destructive: #DC3545; /* червоний для руйнівних дій */
-  --border: #E9ECEF; /* світлий сірий для меж */
-  --input: #E9ECEF; /* світлий сірий для полів введення */
-  --ring: #ADB5BD; /* сірий для контурів фокусу */
+  --primary-foreground: #ffffff; /* білий для тексту на кнопках */
+  --secondary: #6c757d; /* сірий для другорядних елементів */
+  --secondary-foreground: #ffffff; /* білий */
+  --muted: #f8f9fa; /* дуже світлий сірий для приглушених елементів */
+  --muted-foreground: #6c757d; /* сірий */
+  --accent: #adb5bd; /* зелений для акцентів */
+  --accent-foreground: #ffffff; /* білий */
+  --destructive: #dc3545; /* червоний для руйнівних дій */
+  --border: #e9ecef; /* світлий сірий для меж */
+  --input: #e9ecef; /* світлий сірий для полів введення */
+  --ring: #adb5bd; /* сірий для контурів фокусу */
   --chart-1: #212529; /* темний відтінок чорного */
-  --chart-2: #28A745; /* зелений */
-  --chart-3: #FFC107; /* жовтий */
-  --chart-4: #DC3545; /* червоний */
-  --chart-5: #6C757D; /* сірий */
-  --sidebar: #FFFFFF; /* білий */
+  --chart-2: #28a745; /* зелений */
+  --chart-3: #ffc107; /* жовтий */
+  --chart-4: #dc3545; /* червоний */
+  --chart-5: #6c757d; /* сірий */
+  --sidebar: #ffffff; /* білий */
   --sidebar-foreground: #000000; /* чорний */
   --sidebar-primary: #212529; /* темний відтінок чорного для кнопок у бічній панелі */
-  --sidebar-primary-foreground: #FFFFFF; /* білий */
-  --sidebar-accent: #28A745; /* зелений */
-  --sidebar-accent-foreground: #FFFFFF; /* білий */
-  --sidebar-border: #E9ECEF; /* світлий сірий */
-  --sidebar-ring: #ADB5BD; /* сірий */
+  --sidebar-primary-foreground: #ffffff; /* білий */
+  --sidebar-accent: #28a745; /* зелений */
+  --sidebar-accent-foreground: #ffffff; /* білий */
+  --sidebar-border: #e9ecef; /* світлий сірий */
+  --sidebar-ring: #adb5bd; /* сірий */
   --success: #065f46;
   --failed: #991b1b;
   --pending: #1e3a8a;
@@ -84,36 +84,36 @@
 
 .dark {
   --background: #000000; /* чорний */
-  --foreground: #FFFFFF; /* білий */
+  --foreground: #ffffff; /* білий */
   --card: #000000; /* чорний */
-  --card-foreground: #FFFFFF; /* білий */
+  --card-foreground: #ffffff; /* білий */
   --popover: #000000; /* чорний */
-  --popover-foreground: #FFFFFF; /* білий */
+  --popover-foreground: #ffffff; /* білий */
   --primary: #212529; /* темний відтінок чорного для кнопок */
-  --primary-foreground: #FFFFFF; /* білий для тексту на кнопках */
-  --secondary: #6C757D; /* сірий для другорядних елементів */
-  --secondary-foreground: #FFFFFF; /* білий */
-  --muted: #343A40; /* темний сірий для приглушених елементів */
-  --muted-foreground: #ADB5BD; /* світлий сірий */
-  --accent: #ADB5BD; /* жовтий для акцентів */
+  --primary-foreground: #ffffff; /* білий для тексту на кнопках */
+  --secondary: #6c757d; /* сірий для другорядних елементів */
+  --secondary-foreground: #ffffff; /* білий */
+  --muted: #343a40; /* темний сірий для приглушених елементів */
+  --muted-foreground: #adb5bd; /* світлий сірий */
+  --accent: #adb5bd; /* жовтий для акцентів */
   --accent-foreground: #000000; /* чорний */
-  --destructive: #DC3545; /* червоний для руйнівних дій */
-  --border: #343A40; /* темний сірий для меж */
-  --input: #343A40; /* темний сірий для полів введення */
-  --ring: #ADB5BD; /* світлий сірий для контурів фокусу */
+  --destructive: #dc3545; /* червоний для руйнівних дій */
+  --border: #343a40; /* темний сірий для меж */
+  --input: #343a40; /* темний сірий для полів введення */
+  --ring: #adb5bd; /* світлий сірий для контурів фокусу */
   --chart-1: #212529; /* темний відтінок чорного */
-  --chart-2: #FFC107; /* жовтий */
-  --chart-3: #28A745; /* зелений */
-  --chart-4: #DC3545; /* червоний */
-  --chart-5: #6C757D; /* сірий */
+  --chart-2: #ffc107; /* жовтий */
+  --chart-3: #28a745; /* зелений */
+  --chart-4: #dc3545; /* червоний */
+  --chart-5: #6c757d; /* сірий */
   --sidebar: #000000; /* чорний */
-  --sidebar-foreground: #FFFFFF; /* білий */
+  --sidebar-foreground: #ffffff; /* білий */
   --sidebar-primary: #212529; /* темний відтінок чорного */
-  --sidebar-primary-foreground: #FFFFFF; /* білий */
-  --sidebar-accent: #FFC107; /* жовтий */
+  --sidebar-primary-foreground: #ffffff; /* білий */
+  --sidebar-accent: #ffc107; /* жовтий */
   --sidebar-accent-foreground: #000000; /* чорний */
-  --sidebar-border: #343A40; /* темний сірий */
-  --sidebar-ring: #ADB5BD; /* світлий сірий */
+  --sidebar-border: #343a40; /* темний сірий */
+  --sidebar-ring: #adb5bd; /* світлий сірий */
 }
 
 @layer base {
@@ -139,5 +139,4 @@
   .rotating {
     animation: rotate360 2s linear infinite;
   }
-
 }

@@ -3,7 +3,8 @@ import {
   PutObjectCommand,
   PutObjectCommandInput,
   GetObjectCommandInput,
-  S3Client, GetObjectCommandOutput,
+  S3Client,
+  GetObjectCommandOutput,
 } from '@aws-sdk/client-s3';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -58,7 +59,7 @@ export class StorageService {
 
   readResponseIntoReadable(output: GetObjectCommandOutput): Readable {
     if (output.Body instanceof Readable) {
-      return output.Body
+      return output.Body;
     } else {
       return Readable.from(output.Body as unknown as Uint8Array);
     }

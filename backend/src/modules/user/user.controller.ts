@@ -9,7 +9,7 @@ export class UserController {
 
   @Auth()
   @Get('me')
-  async me(@Req() req: Request){
-     return req.user;
+  async me(@Req() req: Request) {
+    return req.user;
   }
 }

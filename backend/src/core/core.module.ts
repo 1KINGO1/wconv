@@ -27,12 +27,12 @@ import { RedisGatewayModule } from '../modules/redis-gateway/redis-gateway.modul
       imports: [RedisModule],
       useFactory: (redisService: RedisService) => {
         return {
-          connection: redisService
-        }
-      }
+          connection: redisService,
+        };
+      },
     }),
     WebsocketModule,
-    RedisGatewayModule
+    RedisGatewayModule,
   ],
 })
 export class CoreModule {}

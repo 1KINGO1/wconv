@@ -20,15 +20,16 @@ export class AuthGuard implements CanActivate {
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
   ) {
-    this.REDIRECT_URL = this.configService.getOrThrow<string>('CLIENT_AUTH_URL');
+    this.REDIRECT_URL =
+      this.configService.getOrThrow<string>('CLIENT_AUTH_URL');
   }
 
-  async canActivate(
-    context: ExecutionContext,
-  ): Promise<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: Request = context.switchToHttp().getRequest();
     const response: Response = context.switchToHttp().getResponse();
-    const token = this.parseAccessTokenFromHeader(request.headers['authorization']);
+    const token = this.parseAccessTokenFromHeader(
+      request.headers['authorization'],
+    );
 
     const redirectOnFailure = false;
     const addReturnUrl = false;
@@ -44,17 +45,17 @@ export class AuthGuard implements CanActivate {
         const tokenPayload = await this.tokenService.verifyAccessToken(token);
         if (tokenPayload.id === undefined) throw new UnauthorizedException();
         userId = tokenPayload.id;
-      }
-      catch (e) {
+      } catch (e) {
         throw new UnauthorizedException();
       }
 
       try {
         request.user = await this.userService.getById(userId);
-      }
-      catch (e) {
+      } catch (e) {
         this.authService.logout(response);
-        throw new UnauthorizedException('User is not found or has been deleted');
+        throw new UnauthorizedException(
+          'User is not found or has been deleted',
+        );
       }
 
       return true;
@@ -64,8 +65,12 @@ export class AuthGuard implements CanActivate {
 
         if (addReturnUrl) {
           const queryParams = new URLSearchParams();
-          queryParams.set('returnUrl', this.configService.getOrThrow<string>("APPLICATION_URL") + request.url);
-          url += "?"
+          queryParams.set(
+            'returnUrl',
+            this.configService.getOrThrow<string>('APPLICATION_URL') +
+              request.url,
+          );
+          url += '?';
           url += queryParams.toString();
         }
 
@@ -79,5 +84,4 @@ export class AuthGuard implements CanActivate {
   private parseAccessTokenFromHeader(authHeader: string) {
     return authHeader?.split(' ')?.[1];
   }
-
 }

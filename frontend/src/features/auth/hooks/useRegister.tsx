@@ -1,13 +1,14 @@
-import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {registerService} from '@/features/auth/services/register.service';
+import { registerService } from '@/features/auth/services/register.service'
+
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export function useRegister() {
-	const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
-	return useMutation({
-		mutationFn: registerService.register,
-		onSuccess: (data) => {
-			console.log(data);
-		}
-	})
+  return useMutation({
+    mutationFn: registerService.register,
+    onSuccess: data => {
+      console.log(data)
+    },
+  })
 }

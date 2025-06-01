@@ -12,16 +12,17 @@ import { Injectable, Logger } from '@nestjs/common';
 @WebSocketGateway({
   cors: {
     origin: '*',
-  }
+  },
 })
-export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class WebsocketGateway
+  implements OnGatewayConnection, OnGatewayDisconnect
+{
   @WebSocketServer()
   server: Server;
 
   private readonly logger = new Logger(WebsocketGateway.name);
 
-  constructor(private readonly tokenService: TokenService) {
-  }
+  constructor(private readonly tokenService: TokenService) {}
 
   async handleConnection(client: Socket) {
     try {
@@ -40,7 +41,9 @@ export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnec
   }
 
   emitToUser(userId: string, name: string, body: Record<string, any>) {
-    return this.server.to(this.generateRoomName(userId)).emit(name, JSON.stringify(body));
+    return this.server
+      .to(this.generateRoomName(userId))
+      .emit(name, JSON.stringify(body));
   }
 
   private generateRoomName(userId: string) {

@@ -1,7 +1,5 @@
-import { Dashboard } from "@/features/conversion/dashboard/Dashboard";
+import { Dashboard } from '@/features/conversion/dashboard/Dashboard'
 
-export default function Page(){
-	return (
-		<Dashboard />
-	)
+export default function Page() {
+  return <Dashboard />
 }

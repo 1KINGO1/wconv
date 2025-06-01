@@ -1,5 +1,5 @@
 export interface JobPayload {
-  fileName: string,
-  conversionId: string,
-  userId: string
+  fileName: string;
+  conversionId: string;
+  userId: string;
 }

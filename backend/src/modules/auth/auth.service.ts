@@ -18,7 +18,9 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly configService: ConfigService,
   ) {
-    this.REFRESH_TOKEN_COOKIE_NAME = this.configService.getOrThrow<string>('REFRESH_TOKEN_COOKIE_NAME');
+    this.REFRESH_TOKEN_COOKIE_NAME = this.configService.getOrThrow<string>(
+      'REFRESH_TOKEN_COOKIE_NAME',
+    );
   }
 
   async registerWithCredentials(res: Response, registerDto: RegisterDto) {
@@ -30,14 +32,17 @@ export class AuthService {
     });
 
     const tokens = await this.tokenService.issueTokenPair({ id: user.id });
-    this.attachRefreshTokenCookie(res, tokens.refreshToken)
+    this.attachRefreshTokenCookie(res, tokens.refreshToken);
 
     return {
       user,
       tokens,
     };
   }
-  async registerWithGoogleOAuth(res: Response, googleOAuthUser: OAuthGoogleUser) {
+  async registerWithGoogleOAuth(
+    res: Response,
+    googleOAuthUser: OAuthGoogleUser,
+  ) {
     let user: User;
 
     try {
@@ -58,7 +63,7 @@ export class AuthService {
     }
 
     const tokens = await this.tokenService.issueTokenPair({ id: user.id });
-    this.attachRefreshTokenCookie(res, tokens.refreshToken)
+    this.attachRefreshTokenCookie(res, tokens.refreshToken);
 
     res.redirect(googleOAuthUser.returnUrl);
   }
@@ -66,37 +71,43 @@ export class AuthService {
     const refreshToken = req.cookies[this.REFRESH_TOKEN_COOKIE_NAME];
 
     if (!refreshToken) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException();
     }
 
     try {
-       const refreshTokenPayload = await this.tokenService.verifyRefreshToken(refreshToken);
-       return {
-         accessToken: await this.tokenService.issueAccessToken({
-           id: refreshTokenPayload.id
-         })
-       }
+      const refreshTokenPayload =
+        await this.tokenService.verifyRefreshToken(refreshToken);
+      return {
+        accessToken: await this.tokenService.issueAccessToken({
+          id: refreshTokenPayload.id,
+        }),
+      };
     } catch (e) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException();
     }
   }
-  async login(res: Response, loginDto: LoginDto){
+  async login(res: Response, loginDto: LoginDto) {
     let user: User & { credentials: { passwordHash: string }[] };
 
     try {
-      user = await this.userService.dangerGetByUsernameWithCredentials(loginDto.username);
-    }catch (e) {
-      throw new UnauthorizedException('User not found')
+      user = await this.userService.dangerGetByUsernameWithCredentials(
+        loginDto.username,
+      );
+    } catch (e) {
+      throw new UnauthorizedException('User not found');
     }
 
     const userCredential = user.credentials[0];
-    const hashMatch = await verify(userCredential.passwordHash, loginDto.password);
+    const hashMatch = await verify(
+      userCredential.passwordHash,
+      loginDto.password,
+    );
     if (!hashMatch) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
     const tokens = await this.tokenService.issueTokenPair({ id: user.id });
-    this.attachRefreshTokenCookie(res, tokens.refreshToken)
+    this.attachRefreshTokenCookie(res, tokens.refreshToken);
 
     delete user.credentials;
 
@@ -107,18 +118,17 @@ export class AuthService {
   }
 
   logout(res: Response) {
-
     res.cookie(this.REFRESH_TOKEN_COOKIE_NAME, '', {
       expires: new Date(Date.now()),
       httpOnly: true,
-    })
-    return {ok: true}
+    });
+    return { ok: true };
   }
 
   private attachRefreshTokenCookie(res: Response, refreshToken: string) {
     res.cookie(this.REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 29),
       httpOnly: true,
-    })
+    });
   }
 }
