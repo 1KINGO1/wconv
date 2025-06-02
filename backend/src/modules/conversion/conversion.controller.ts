@@ -23,6 +23,12 @@ export class ConversionController {
   constructor(private readonly conversionService: ConversionService) {}
 
   @Auth()
+  @Get('')
+  async getConversions(@Req() req: Request) {
+    return this.conversionService.getUserConversions(req.user);
+  }
+
+  @Auth()
   @Post('convert/jpg-to-png')
   @UseInterceptors(FileInterceptor('file'))
   async convert(

@@ -79,6 +79,16 @@ export class ConversionService {
       throw new InternalServerErrorException(e.message);
     }
   }
+  async getUserConversions(user: User) {
+    return this.prismaService.conversion.findMany({
+      where: {
+        userId: user.id,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
 
   generateFileName(originalName: string) {
     return `${Date.now()}-${originalName}`;
