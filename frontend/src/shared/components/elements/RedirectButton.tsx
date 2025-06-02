@@ -15,17 +15,19 @@ export function RedirectButton(
       blank?: boolean
     },
 ) {
+  const { url, blank, children, ...rest } = props
+
   const router = useRouter()
   const clickHandler = () => {
-    if (props.blank) {
-      window.open(props.url, '_blank')
+    if (blank) {
+      window.open(url, '_blank')
       return
     }
-    router.push(props.url)
+    router.push(url)
   }
 
   return (
-    <Button {...props} onClick={clickHandler}>
+    <Button {...rest} onClick={clickHandler}>
       {props.children}
     </Button>
   )
