@@ -41,6 +41,7 @@ export class WebsocketGateway
   }
 
   emitToUser(userId: string, name: string, body: Record<string, any>) {
+    console.log('Emitting to user:', userId, name, body);
     return this.server
       .to(this.generateRoomName(userId))
       .emit(name, JSON.stringify(body));

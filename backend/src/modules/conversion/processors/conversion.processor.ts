@@ -44,7 +44,10 @@ export class ConversionProcessor extends WorkerHost {
       const readable = this.storageService.readResponseIntoReadable(output);
       const buffer = await streamToBuffer(readable);
 
-      const pngBuffer = await sharp(buffer).png().toBuffer();
+      const pngBuffer = await
+        sharp(buffer)
+          .png({ quality: 80, compressionLevel: 9, adaptiveFiltering: true })
+          .toBuffer();
 
       const convertedFileName =
         `converted-` + job.data.fileName.replaceAll(/\.jpe?g$/g, '.png');
