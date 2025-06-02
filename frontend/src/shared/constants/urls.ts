@@ -5,6 +5,7 @@ export const Urls = {
   login: '/auth/login',
   register: '/auth/register',
   conversion: (path: string) => '/conversion/convert/' + path,
+  file: (fileName: string) => '/conversion/files/' + fileName,
 } as const
 
 export const API_BASE_URL = 'http://localhost:3000/api'

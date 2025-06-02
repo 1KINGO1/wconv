@@ -1,11 +1,14 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { Socket } from 'socket.io-client'
 
 import {
   SupportedConversion,
   supportedConversions,
 } from '@/features/conversion/constants/supported-conversions'
+import { ConversionItem } from '@/features/conversion/ConversionItem'
+import { useRecentConversion } from '@/features/conversion/hooks/useRecentConversion'
 import { FileInput } from '@/shared/components/elements/FileInput'
 import { Card } from '@/shared/components/ui/card'
 import {
@@ -19,6 +22,10 @@ import {
 } from '@/shared/components/ui/select'
 import { MimeType } from '@/shared/constants/mimetype'
 import { mimeDescriptions } from '@/shared/constants/mimetypes-descriptions'
+import { WebsocketEvents } from '@/shared/constants/websocket-events'
+import { useSocket } from '@/shared/hooks/useSocket'
+import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
+import { API_BASE_URL, Urls } from '@/shared/constants/urls'
 
 export function Conversion() {
   const [file, setFile] = useState<File | null>(null)
@@ -28,7 +35,8 @@ export function Conversion() {
   >([])
   const [selectedConversion, setSelectedConversion] =
     useState<SupportedConversion | null>(null)
-
+  const { data: recentConversions } = useRecentConversion()
+  useConversionStateChange();
   useEffect(() => {
     if (file === null) {
       setAvailableConversions([])
@@ -49,7 +57,11 @@ export function Conversion() {
 
     setAvailableConversions(availableConversions)
   }, [file])
-
+  useEffect(() => {
+    if (error === null) return;
+    setSelectedConversion(null)
+    setAvailableConversions([])
+  }, [error])
   const selectHandler = (value: string) => {
     setSelectedConversion(
       availableConversions.find(c => c.fileToMimetype === value) ?? null,
@@ -62,7 +74,7 @@ export function Conversion() {
   }, [selectedConversion])
 
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex flex-col gap-8 justify-center items-center'>
       <Card className='p-8'>
         <FileInput
           file={file}
@@ -91,6 +103,21 @@ export function Conversion() {
           {selectedConversion && FormElement && <FormElement />}
         </div>
       </Card>
+      <div className='flex flex-col gap-2 w-full justify-center'>
+        {recentConversions &&
+          recentConversions.map(conversion => (
+            <ConversionItem
+              key={conversion.id}
+              state={conversion.state}
+              fileFromName={conversion.fileFromName}
+              fileFromUrl={conversion.fileToName}
+              fileFromFormat={conversion.fileFromFormat}
+              fileToFormat={conversion.fileToFormat}
+              fileToName={conversion?.fileToName}
+              fileToUrl={API_BASE_URL + Urls.file(conversion?.fileToName)}
+            />
+          ))}
+      </div>
     </div>
   )
 }

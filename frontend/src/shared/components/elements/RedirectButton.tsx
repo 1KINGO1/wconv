@@ -11,11 +11,16 @@ export function RedirectButton(
   props: React.ComponentProps<'button'> &
     VariantProps<typeof buttonVariants> & {
       asChild?: boolean
-      url: string
+      url: string,
+      blank?: boolean
     },
 ) {
   const router = useRouter()
   const clickHandler = () => {
+    if (props.blank) {
+      window.open(props.url, '_blank')
+      return
+    }
     router.push(props.url)
   }
 
