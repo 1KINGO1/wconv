@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { SimpleConversionForm } from '@/features/conversion/forms/SimpleConversionForm'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
 import { MimeType } from '@/shared/constants/mimetype'
+import { JpgToPngForm } from '@/features/conversion/forms/JpgToPngForm'
 
 export interface SupportedConversion {
   fileFromMimetype: MimeType
@@ -20,7 +21,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileToMimetype: MimeType.PNG,
     fileToType: ConversionFormat.PNG,
     path: 'jpg-to-png',
-    Form: SimpleConversionForm,
+    Form: JpgToPngForm,
   },
 ]
 

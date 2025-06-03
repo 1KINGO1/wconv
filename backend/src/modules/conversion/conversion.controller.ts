@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   FileTypeValidator,
   Get,
@@ -15,6 +16,7 @@ import { ConversionService } from './conversion.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request, Response } from 'express';
 import { Auth } from '../../shared/decorators/auth.decorator';
+import { JpgToPngDto } from './dto/JpgToPng.dto';
 
 const MB_SIZE = 1000000;
 
@@ -42,8 +44,9 @@ export class ConversionController {
     )
     file: Express.Multer.File,
     @Req() req: Request,
+    @Body() body: JpgToPngDto
   ) {
-    return this.conversionService.convertJpgToPng(file, req.user);
+    return this.conversionService.convertJpgToPng(file, body, req.user);
   }
 
   @Get('files/:key')

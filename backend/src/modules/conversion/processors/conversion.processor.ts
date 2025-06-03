@@ -11,6 +11,7 @@ import { ConversionService } from '../conversion.service';
 import { RedisGatewayWebhookMessageBody } from '../../../shared/constants/redis-gateway-event-bodies';
 import { RedisService } from 'src/core/redis/redis.service';
 import { RedisGatewayEvents } from '../../../shared/constants/redis-gateway-events.enum';
+import { JpgToPngDto } from '../dto/JpgToPng.dto';
 
 @Processor('conversion')
 export class ConversionProcessor extends WorkerHost {
@@ -39,15 +40,22 @@ export class ConversionProcessor extends WorkerHost {
   private async handleJpgToPng(job: Job<JobPayload, any, string>) {
     try {
       const key = this.conversionService.generateS3Key(job.data.fileName);
+      const options: JpgToPngDto = JSON.parse(job.data.options);
 
       const output = await this.storageService.read(key);
       const readable = this.storageService.readResponseIntoReadable(output);
       const buffer = await streamToBuffer(readable);
 
-      const pngBuffer = await
-        sharp(buffer)
-          .png({ quality: 80, compressionLevel: 9, adaptiveFiltering: true })
-          .toBuffer();
+      const pngBuffer = await sharp(buffer)
+        .png({
+          quality: options.quality,
+          compressionLevel: options.compressionLevel,
+          adaptiveFiltering: true,
+        })
+        .resize(options.resizeWidth, options.resizeHeight, {
+          fit: 'fill'
+        })
+        .toBuffer();
 
       const convertedFileName =
         `converted-` + job.data.fileName.replaceAll(/\.jpe?g$/g, '.png');

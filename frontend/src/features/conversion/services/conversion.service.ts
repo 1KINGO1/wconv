@@ -7,6 +7,18 @@ class ConversionService {
     const formData = new FormData()
     formData.append('file', file)
 
+    console.log(options);
+
+    if (options !== undefined) {
+      for(let key of Object.keys(options)) {
+        if (options[key] === null || options[key] === undefined) {
+          continue
+        }
+        formData.append(key, options[key])
+      }
+    }
+
+
     return apiWithAuth.post<{conversion: Conversion}>(Urls.conversion(path), formData, {
       headers: {
         'Content-Type': 'multipart/form-data',

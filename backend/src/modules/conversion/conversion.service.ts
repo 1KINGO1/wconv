@@ -13,6 +13,7 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 import { ConversionFormat, ConversionState, User } from 'prisma/generated';
 import { JobPayload } from './types/job-payload';
 import { JobType } from './types/job-type.enum';
+import { JpgToPngDto } from './dto/JpgToPng.dto';
 
 @Injectable()
 export class ConversionService {
@@ -28,7 +29,7 @@ export class ConversionService {
       this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
   }
 
-  async convertJpgToPng(file: Express.Multer.File, user: User) {
+  async convertJpgToPng(file: Express.Multer.File, options: JpgToPngDto, user: User) {
     const fileName = await this.uploadFileToS3(file);
 
     const conversion = await this.prismaService.conversion.create({
@@ -45,6 +46,7 @@ export class ConversionService {
       fileName: fileName,
       conversionId: conversion.id,
       userId: user.id,
+      options: JSON.stringify(options)
     };
     await this.conversionQueue.add(JobType.JPG_TO_PNG, payload);
 
