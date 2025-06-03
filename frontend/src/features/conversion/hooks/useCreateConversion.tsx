@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { QueryKeys } from '@/shared/constants/query-keys'
 import { Conversion } from '@/shared/entity/Conversion'
 
-export function useConversion(
+export function useCreateConversion(
   path: string,
   file: File,
   options: Record<string, any>,

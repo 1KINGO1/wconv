@@ -87,6 +87,7 @@ export class ConversionService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: 30
     });
   }
 

@@ -13,6 +13,11 @@ class ConversionService {
       },
     })
   }
+
+  async getConversions(): Promise<Conversion[]> {
+    const {data} = await apiWithAuth.get<Conversion[]>(Urls.conversions);
+    return data;
+  }
 }
 
 export const conversionService = new ConversionService()

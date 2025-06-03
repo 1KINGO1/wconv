@@ -24,21 +24,28 @@ export function useConversionStateChange() {
         return;
       }
 
+      function updateCache(oldConversions: Conversion[]) {
+        const newConversions = [];
+
+        for (const conversion of oldConversions || []) {
+          if (conversion.id === parsedBody.conversion.id) {
+            newConversions.push(parsedBody.conversion)
+          } else {
+            newConversions.push(conversion)
+          }
+        }
+
+        return newConversions;
+      }
+
       queryClient.setQueryData(
         [QueryKeys.RecentConversions],
-        (oldConversions: Conversion[]) => {
-          const newConversions = [];
+        updateCache,
+      )
 
-          for (const conversion of oldConversions || []) {
-            if (conversion.id === parsedBody.conversion.id) {
-              newConversions.push(parsedBody.conversion)
-            } else {
-              newConversions.push(conversion)
-            }
-          }
-
-          return newConversions;
-        },
+      queryClient.setQueryData(
+        [QueryKeys.Conversations],
+        updateCache,
       )
     }
 

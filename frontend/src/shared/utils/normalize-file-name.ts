@@ -5,3 +5,4 @@ export function normalizeFileName(fileName: string) {
     .slice(filePartsArray[0] === 'converted' ? 2 : 1)
     .join('-')
 }
+

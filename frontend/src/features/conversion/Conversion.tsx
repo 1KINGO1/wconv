@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Socket } from 'socket.io-client'
 
 import {
   SupportedConversion,
@@ -22,10 +21,8 @@ import {
 } from '@/shared/components/ui/select'
 import { MimeType } from '@/shared/constants/mimetype'
 import { mimeDescriptions } from '@/shared/constants/mimetypes-descriptions'
-import { WebsocketEvents } from '@/shared/constants/websocket-events'
-import { useSocket } from '@/shared/hooks/useSocket'
 import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
-import { API_BASE_URL, Urls } from '@/shared/constants/urls'
+import { getFileDownloadUrl } from '@/shared/utils/get-file-download-url'
 
 export function Conversion() {
   const [file, setFile] = useState<File | null>(null)
@@ -114,7 +111,7 @@ export function Conversion() {
               fileFromFormat={conversion.fileFromFormat}
               fileToFormat={conversion.fileToFormat}
               fileToName={conversion?.fileToName}
-              fileToUrl={API_BASE_URL + Urls.file(conversion?.fileToName)}
+              fileToUrl={getFileDownloadUrl(conversion?.fileToName)}
             />
           ))}
       </div>

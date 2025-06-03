@@ -28,7 +28,7 @@ const colorMap: Record<ConversionState, string> = {
 
 export function ConversionItem(props: ConversionItemProps) {
   return (
-    <Card className='flex flex-row items-center px-4 py-4'>
+    <Card className='flex flex-row items-center px-4 py-4 w-full'>
       <div className='flex-1 flex justify-start'>
         <div
           className={cn(
@@ -39,9 +39,9 @@ export function ConversionItem(props: ConversionItemProps) {
           {props.state}
         </div>
       </div>
-      <div className='flex items-center justify-center gap-2 flex-1'>
-        <div className='flex items-center gap-2'>
-          <p>{normalizeFileName(props.fileFromName)}</p>
+      <div className='flex items-center justify-center gap-2 flex-2 min-w-0'>
+        <div className='flex items-center gap-2 min-w-0'>
+          <p className='truncate'>{normalizeFileName(props.fileFromName)}</p>
           <FileFormatBadge>{props.fileFromFormat}</FileFormatBadge>
         </div>
 
@@ -68,10 +68,10 @@ export function ConversionItem(props: ConversionItemProps) {
           </div>
         )}
 
-        <div className='flex items-center gap-2'>
+        <div className='flex items-center gap-2 min-w-0'>
           {props.state !== ConversionState.FAILED ? (
             props.fileToName ? (
-              <p>{normalizeFileName(props.fileToName)}</p>
+              <p className='truncate'>{normalizeFileName(props.fileToName)}</p>
             ) : (
               <div className='flex flex-row items-center'>
                 <Skeleton className='h-5 w-[80px]' />

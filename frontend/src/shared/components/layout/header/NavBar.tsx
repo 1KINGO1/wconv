@@ -8,7 +8,7 @@ export function NavBar() {
           <Link href='/conversion/dashboard'>Home</Link>
         </li>
         <li>
-          <Link href='/conversion/dashboard'>My Conversions</Link>
+          <Link href='/conversion/dashboard/my'>My Conversions</Link>
         </li>
       </ul>
     </nav>
