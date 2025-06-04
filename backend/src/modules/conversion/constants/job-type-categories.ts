@@ -1,4 +1,4 @@
-import { JobType } from '../types/job-type.enum';
+import { JobType } from './job-type.enum';
 
 export const JobTypeCategories: Record<string, JobType[]> = {
   IMAGE: [
@@ -31,8 +31,8 @@ export const JobTypeCategories: Record<string, JobType[]> = {
     JobType.AVIF_TO_PNG,
     JobType.AVIF_TO_TIFF,
     JobType.AVIF_TO_GIF,
-    JobType.AVIF_TO_WEBP
-  ]
-}
+    JobType.AVIF_TO_WEBP,
+  ],
+};
 
 export type JobTypeCategory = keyof typeof JobTypeCategories;

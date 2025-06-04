@@ -1,8 +1,8 @@
 import { FC } from 'react'
 
+import { BasicImageConversionForm } from '@/features/conversion/forms/BasicImageConversionForm'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
 import { MimeType } from '@/shared/constants/mimetype'
-import { BasicImageConversionForm } from '@/features/conversion/forms/BasicImageConversionForm'
 
 export interface SupportedConversion {
   fileFromMimetype: MimeType
@@ -181,5 +181,5 @@ export const supportedConversions: SupportedConversion[] = [
     fileToType: ConversionFormat.TIFF,
     path: 'avif-to-tiff',
     Form: BasicImageConversionForm,
-  }
+  },
 ]

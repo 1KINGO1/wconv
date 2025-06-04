@@ -11,7 +11,7 @@ import { Queue } from 'bullmq';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { ConversionState, User } from 'prisma/generated';
 import { JobPayload } from './types/job-payload';
-import { JobType } from './types/job-type.enum';
+import { JobType } from './constants/job-type.enum';
 import { BaseImageConversionDto } from './dto/BaseImageConversion.dto';
 import { JobTypeInfo } from './constants/job-type-info';
 
@@ -29,7 +29,12 @@ export class ConversionService {
       this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
   }
 
-  async convertImage(file: Express.Multer.File, jobType: JobType, options: BaseImageConversionDto, user: User) {
+  async convertImage(
+    file: Express.Multer.File,
+    jobType: JobType,
+    options: BaseImageConversionDto,
+    user: User,
+  ) {
     const jobTypeInfo = JobTypeInfo[jobType];
     const fileName = await this.uploadFileToS3(file);
 
@@ -47,7 +52,7 @@ export class ConversionService {
       fileName: fileName,
       conversionId: conversion.id,
       userId: user.id,
-      options: JSON.stringify(options)
+      options: JSON.stringify(options),
     };
     await this.conversionQueue.add(jobType, payload);
 
@@ -90,7 +95,7 @@ export class ConversionService {
       orderBy: {
         createdAt: 'desc',
       },
-      take: 30
+      take: 30,
     });
   }
 

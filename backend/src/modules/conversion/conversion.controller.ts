@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, Param, Req, Res } from '@nestjs/common';
 import { ConversionService } from './conversion.service';
 import { Request, Response } from 'express';
 import { Auth } from '../../shared/decorators/auth.decorator';

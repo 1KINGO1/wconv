@@ -14,7 +14,7 @@ export function SimpleConversionForm(file: File, requestSendUrl: string) {
     const conversionMutation = useCreateConversion(requestSendUrl, file)
 
     const submitHandler = async () => {
-      if (loading) return;
+      if (loading) return
       setLoading(true)
       await conversionMutation.mutateAsync({})
       setLoading(false)

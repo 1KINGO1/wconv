@@ -1,3 +1,4 @@
+import { RedirectButton } from '@/shared/components/elements/RedirectButton'
 import { Card } from '@/shared/components/ui/card'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
@@ -8,7 +9,6 @@ import { cn } from '@/shared/utils/utils'
 import Image from 'next/image'
 
 import { FileFormatBadge } from './FileFormatBadge'
-import { RedirectButton } from '@/shared/components/elements/RedirectButton'
 
 interface ConversionItemProps {
   state: ConversionState
@@ -46,7 +46,7 @@ export function ConversionItem(props: ConversionItemProps) {
         </div>
 
         {props.state === ConversionState.PENDING && (
-          <div className="min-w-5">
+          <div className='min-w-5'>
             <Image
               src='/arrow_spin.png'
               className='rotating'
@@ -58,7 +58,7 @@ export function ConversionItem(props: ConversionItemProps) {
         )}
 
         {props.state !== ConversionState.PENDING && (
-          <div className="min-w-5">
+          <div className='min-w-5'>
             <Image
               src='/arrow_right.png'
               alt='Arrow right'

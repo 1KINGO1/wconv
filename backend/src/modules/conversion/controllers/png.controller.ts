@@ -1,15 +1,10 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ConversionService } from '../conversion.service';
 import { FileInterceptor } from '../decorators/file.interceptor';
 import { Auth } from '../../../shared/decorators/auth.decorator';
 import { BaseImageConversionDto } from '../dto/BaseImageConversion.dto';
 import { File } from '../decorators/file.decorator';
-import { JobType } from '../types/job-type.enum';
+import { JobType } from '../constants/job-type.enum';
 import { Request } from 'express';
 
 @Controller('conversion/convert')
@@ -24,9 +19,14 @@ export class PngController {
     file: Express.Multer.File,
 
     @Req() req: Request,
-    @Body() body: BaseImageConversionDto
+    @Body() body: BaseImageConversionDto,
   ) {
-    return this.conversionService.convertImage(file, JobType.PNG_TO_JPG, body, req.user);
+    return this.conversionService.convertImage(
+      file,
+      JobType.PNG_TO_JPG,
+      body,
+      req.user,
+    );
   }
 
   @Auth()
@@ -37,9 +37,14 @@ export class PngController {
     file: Express.Multer.File,
 
     @Req() req: Request,
-    @Body() body: BaseImageConversionDto
+    @Body() body: BaseImageConversionDto,
   ) {
-    return this.conversionService.convertImage(file, JobType.PNG_TO_WEBP, body, req.user);
+    return this.conversionService.convertImage(
+      file,
+      JobType.PNG_TO_WEBP,
+      body,
+      req.user,
+    );
   }
 
   @Auth()
@@ -50,9 +55,14 @@ export class PngController {
     file: Express.Multer.File,
 
     @Req() req: Request,
-    @Body() body: BaseImageConversionDto
+    @Body() body: BaseImageConversionDto,
   ) {
-    return this.conversionService.convertImage(file, JobType.PNG_TO_AVIF, body, req.user);
+    return this.conversionService.convertImage(
+      file,
+      JobType.PNG_TO_AVIF,
+      body,
+      req.user,
+    );
   }
 
   @Auth()
@@ -63,9 +73,14 @@ export class PngController {
     file: Express.Multer.File,
 
     @Req() req: Request,
-    @Body() body: BaseImageConversionDto
+    @Body() body: BaseImageConversionDto,
   ) {
-    return this.conversionService.convertImage(file, JobType.PNG_TO_TIFF, body, req.user);
+    return this.conversionService.convertImage(
+      file,
+      JobType.PNG_TO_TIFF,
+      body,
+      req.user,
+    );
   }
 
   @Auth()
@@ -76,8 +91,13 @@ export class PngController {
     file: Express.Multer.File,
 
     @Req() req: Request,
-    @Body() body: BaseImageConversionDto
+    @Body() body: BaseImageConversionDto,
   ) {
-    return this.conversionService.convertImage(file, JobType.PNG_TO_GIF, body, req.user);
+    return this.conversionService.convertImage(
+      file,
+      JobType.PNG_TO_GIF,
+      body,
+      req.user,
+    );
   }
 }

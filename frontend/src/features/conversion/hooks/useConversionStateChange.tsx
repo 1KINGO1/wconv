@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 
+import { QueryKeys } from '@/shared/constants/query-keys'
 import { WebsocketEvents } from '@/shared/constants/websocket-events'
 import { Conversion } from '@/shared/entity/Conversion'
 import { useSocket } from '@/shared/hooks/useSocket'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { QueryKeys } from '@/shared/constants/query-keys'
 
 export function useConversionStateChange() {
   const socket = useSocket()
@@ -17,15 +17,15 @@ export function useConversionStateChange() {
     }
 
     const conversionStateChangedHandler = (body: string) => {
-      const parsedBody: {conversion: Conversion} = JSON.parse(body);
+      const parsedBody: { conversion: Conversion } = JSON.parse(body)
 
       if (!parsedBody.conversion) {
-        console.error('Invalid conversion state update received:', body);
-        return;
+        console.error('Invalid conversion state update received:', body)
+        return
       }
 
       function updateCache(oldConversions: Conversion[]) {
-        const newConversions = [];
+        const newConversions = []
 
         for (const conversion of oldConversions || []) {
           if (conversion.id === parsedBody.conversion.id) {
@@ -35,18 +35,12 @@ export function useConversionStateChange() {
           }
         }
 
-        return newConversions;
+        return newConversions
       }
 
-      queryClient.setQueryData(
-        [QueryKeys.RecentConversions],
-        updateCache,
-      )
+      queryClient.setQueryData([QueryKeys.RecentConversions], updateCache)
 
-      queryClient.setQueryData(
-        [QueryKeys.Conversations],
-        updateCache,
-      )
+      queryClient.setQueryData([QueryKeys.Conversations], updateCache)
     }
 
     socket.on(

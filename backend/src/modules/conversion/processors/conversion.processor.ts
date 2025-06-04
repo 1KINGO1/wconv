@@ -1,7 +1,7 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { JobPayload } from '../types/job-payload';
-import { JobType } from '../types/job-type.enum';
+import { JobType } from '../constants/job-type.enum';
 import { StorageService } from 'src/modules/libs/storage/storage.service';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { ConversionState } from 'prisma/generated';

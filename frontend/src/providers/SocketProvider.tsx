@@ -28,11 +28,11 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
 
     const onConnect = () => {
       console.log('Socket connected:', socketRef.current?.id)
-      setIsConnected(true);
+      setIsConnected(true)
     }
     const onDisconnect = () => {
       console.log('Socket disconnected:', socketRef.current?.id)
-      setIsConnected(false);
+      setIsConnected(false)
     }
 
     socketRef.current.on('connect', onConnect)

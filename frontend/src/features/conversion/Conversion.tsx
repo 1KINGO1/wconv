@@ -7,6 +7,7 @@ import {
   supportedConversions,
 } from '@/features/conversion/constants/supported-conversions'
 import { ConversionItem } from '@/features/conversion/ConversionItem'
+import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
 import { useRecentConversion } from '@/features/conversion/hooks/useRecentConversion'
 import { FileInput } from '@/shared/components/elements/FileInput'
 import { Card } from '@/shared/components/ui/card'
@@ -21,17 +22,19 @@ import {
 } from '@/shared/components/ui/select'
 import { MimeType } from '@/shared/constants/mimetype'
 import { mimeDescriptions } from '@/shared/constants/mimetypes-descriptions'
-import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
 import { getFileDownloadUrl } from '@/shared/utils/get-file-download-url'
 
 export function Conversion() {
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
-  const [availableConversions, setAvailableConversions] = useState<SupportedConversion[]>([])
-  const [selectedConversion, setSelectedConversion] = useState<SupportedConversion | null>(null)
+  const [availableConversions, setAvailableConversions] = useState<
+    SupportedConversion[]
+  >([])
+  const [selectedConversion, setSelectedConversion] =
+    useState<SupportedConversion | null>(null)
   const { data: recentConversions } = useRecentConversion()
 
-  useConversionStateChange();
+  useConversionStateChange()
 
   useEffect(() => {
     if (file === null) {
@@ -54,12 +57,12 @@ export function Conversion() {
     setAvailableConversions(availableConversions)
   }, [file])
   useEffect(() => {
-    if (error === null) return;
+    if (error === null) return
     setSelectedConversion(null)
     setAvailableConversions([])
   }, [error])
   useEffect(() => {
-    setSelectedConversion(null);
+    setSelectedConversion(null)
   }, [availableConversions])
 
   const selectHandler = (value: string) => {

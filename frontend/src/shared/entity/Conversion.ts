@@ -1,5 +1,6 @@
-import { ConversionState } from '../constants/conversion-state'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
+
+import { ConversionState } from '../constants/conversion-state'
 
 export interface Conversion {
   id: string

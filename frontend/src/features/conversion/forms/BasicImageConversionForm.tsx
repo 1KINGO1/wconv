@@ -5,14 +5,21 @@ import { useForm } from 'react-hook-form'
 
 import { useCreateConversion } from '@/features/conversion/hooks/useCreateConversion'
 import { Button } from '@/shared/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/shared/components/ui/form'
+import { Input } from '@/shared/components/ui/input'
 import {
   defaultImageConversionSchema,
   DefaultImageConversionSchemaType,
 } from '@/shared/schemas/default-image-conversion.schema'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/shared/components/ui/input'
 
 export function BasicImageConversionForm(file: File, requestSendUrl: string) {
   return function () {
@@ -27,7 +34,11 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
     })
     const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
-    const conversionMutation = useCreateConversion(requestSendUrl, file, setProgress)
+    const conversionMutation = useCreateConversion(
+      requestSendUrl,
+      file,
+      setProgress,
+    )
 
     const submitHandler = async (data: DefaultImageConversionSchemaType) => {
       if (loading) return
@@ -38,7 +49,10 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
 
     return (
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(submitHandler)} className="flex flex-col gap-3 w-full">
+        <form
+          onSubmit={form.handleSubmit(submitHandler)}
+          className='flex flex-col gap-3 w-full'
+        >
           <FormField
             control={form.control}
             name='quality'
@@ -53,7 +67,7 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
                     min={10}
                     max={100}
                     {...field}
-                    onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+                    onChange={e => field.onChange(parseInt(e.target.value, 10))}
                   />
                 </FormControl>
                 <FormMessage />
@@ -73,7 +87,7 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
                     min={1}
                     max={9}
                     {...field}
-                    onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+                    onChange={e => field.onChange(parseInt(e.target.value, 10))}
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,7 +108,11 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
                     max={10000}
                     {...field}
                     value={field.value ?? ''}
-                    onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value, 10) : null) }
+                    onChange={e =>
+                      field.onChange(
+                        e.target.value ? parseInt(e.target.value, 10) : null,
+                      )
+                    }
                   />
                 </FormControl>
                 <FormMessage />
@@ -115,14 +133,20 @@ export function BasicImageConversionForm(file: File, requestSendUrl: string) {
                     max={10000}
                     {...field}
                     value={field.value ?? ''}
-                    onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value, 10) : null) }
+                    onChange={e =>
+                      field.onChange(
+                        e.target.value ? parseInt(e.target.value, 10) : null,
+                      )
+                    }
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button disabled={loading}>{loading ? `${progress}%` : 'Convert'}</Button>
+          <Button disabled={loading}>
+            {loading ? `${progress}%` : 'Convert'}
+          </Button>
         </form>
       </Form>
     )

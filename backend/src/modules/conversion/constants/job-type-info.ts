@@ -1,5 +1,5 @@
 import { ConversionFormat } from 'prisma/generated';
-import { JobType } from '../types/job-type.enum';
+import { JobType } from './job-type.enum';
 
 interface JobTypeInfoItem {
   conversionFormat: string;
@@ -171,5 +171,4 @@ export const JobTypeInfo: Record<JobType, JobTypeInfoItem> = {
   },
 } as const;
 
-
-export type JobTypeInfo = typeof JobTypeInfo[JobType];
+export type JobTypeInfo = (typeof JobTypeInfo)[JobType];
