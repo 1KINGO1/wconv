@@ -26,7 +26,8 @@ export function JpgToPngForm(file: File, requestSendUrl: string) {
       },
     })
     const [loading, setLoading] = useState(false)
-    const conversionMutation = useCreateConversion(requestSendUrl, file)
+    const [progress, setProgress] = useState(0)
+    const conversionMutation = useCreateConversion(requestSendUrl, file, setProgress)
 
     const submitHandler = async (data: DefaultImageConversionSchemaType) => {
       if (loading) return
@@ -121,7 +122,7 @@ export function JpgToPngForm(file: File, requestSendUrl: string) {
               </FormItem>
             )}
           />
-          <Button disabled={loading}>Convert</Button>
+          <Button disabled={loading}>{loading ? `${progress}%` : 'Convert'}</Button>
         </form>
       </Form>
     )

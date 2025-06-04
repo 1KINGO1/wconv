@@ -3,11 +3,9 @@ import { Urls } from '@/shared/constants/urls'
 import { Conversion } from '@/shared/entity/Conversion'
 
 class ConversionService {
-  async convert(path: string, file: File, options?: Record<string, any>) {
+  async convert(path: string, file: File, options?: Record<string, any>, onProgress?: (progress: number) => void) {
     const formData = new FormData()
     formData.append('file', file)
-
-    console.log(options);
 
     if (options !== undefined) {
       for(let key of Object.keys(options)) {
@@ -18,11 +16,16 @@ class ConversionService {
       }
     }
 
-
     return apiWithAuth.post<{conversion: Conversion}>(Urls.conversion(path), formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      onUploadProgress: (progressEvent) => {
+        if (onProgress && progressEvent.total) {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          onProgress(percentCompleted);
+        }
+      }
     })
   }
 

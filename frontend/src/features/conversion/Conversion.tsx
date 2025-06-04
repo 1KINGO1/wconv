@@ -68,7 +68,7 @@ export function Conversion() {
   const FormElement = useMemo(() => {
     if (!selectedConversion || !file) return null
     return selectedConversion.Form(file, selectedConversion.path)
-  }, [selectedConversion])
+  }, [selectedConversion, file])
 
   return (
     <div className='flex flex-col gap-8 justify-center items-center'>

@@ -7,11 +7,12 @@ import { Conversion } from '@/shared/entity/Conversion'
 export function useCreateConversion(
   path: string,
   file: File,
+  onProgress?: (progressPercents: number) => void,
 ) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (options: Record<string, any>) => conversionService.convert(path, file, options),
+    mutationFn: (options: Record<string, any>) => conversionService.convert(path, file, options, onProgress),
     onSuccess: (data) => {
       queryClient.setQueryData([QueryKeys.RecentConversions], (prevData: Conversion[]) => {
         return [data.data.conversion, ...prevData];
