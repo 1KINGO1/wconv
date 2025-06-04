@@ -8,6 +8,7 @@ export enum MimeType {
   TIFF = 'image/tiff',
   ICON = 'image/x-icon',
   HEIC = 'image/heic',
+  AVIF = 'image/avif',
 
   MP3 = 'audio/mpeg',
   OGG_AUDIO = 'audio/ogg',

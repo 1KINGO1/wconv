@@ -11,7 +11,9 @@ import { ConversionService } from '../conversion.service';
 import { RedisGatewayWebhookMessageBody } from '../../../shared/constants/redis-gateway-event-bodies';
 import { RedisService } from 'src/core/redis/redis.service';
 import { RedisGatewayEvents } from '../../../shared/constants/redis-gateway-events.enum';
-import { JpgToPngDto } from '../dto/JpgToPng.dto';
+import { BaseImageConversionDto } from '../dto/BaseImageConversion.dto';
+import { JobTypeInfo } from '../types/job-type-info';
+import { JobTypeCategories } from '../types/job-type-categories';
 
 @Processor('conversion')
 export class ConversionProcessor extends WorkerHost {
@@ -28,40 +30,47 @@ export class ConversionProcessor extends WorkerHost {
   }
 
   async process(job: Job<JobPayload, any, string>): Promise<any> {
-    switch (job.name) {
-      case JobType.JPG_TO_PNG:
-        await this.handleJpgToPng(job);
-        break;
-      default:
-        throw new Error('Invalid job name');
-    }
-  }
-
-  private async handleJpgToPng(job: Job<JobPayload, any, string>) {
     try {
       const key = this.conversionService.generateS3Key(job.data.fileName);
-      const options: JpgToPngDto = JSON.parse(job.data.options);
-
       const output = await this.storageService.read(key);
       const readable = this.storageService.readResponseIntoReadable(output);
       const buffer = await streamToBuffer(readable);
 
-      const pngBuffer = await sharp(buffer)
-        .png({
-          quality: options.quality,
-          compressionLevel: options.compressionLevel,
-          adaptiveFiltering: true,
-        })
-        .resize(options.resizeWidth, options.resizeHeight, {
-          fit: 'fill'
-        })
-        .toBuffer();
+      const jobName = job.name as JobType;
+      const jobConversionTypeInfo = JobTypeInfo[jobName];
+      const jobConversionFormat = jobConversionTypeInfo.conversionFormat;
+      const options = JSON.parse(job.data.options);
+
+      let responseBuffer: Buffer;
+      switch (true) {
+        case JobTypeCategories.IMAGE.includes(jobName):
+          responseBuffer = await this.handleImageConversion(
+            buffer,
+            jobConversionFormat,
+            options,
+          );
+          break;
+        default:
+          throw new Error('Invalid job name');
+      }
+
+      if (responseBuffer === null) {
+        throw new Error('Conversion failed');
+      }
 
       const convertedFileName =
-        `converted-` + job.data.fileName.replaceAll(/\.jpe?g$/g, '.png');
+        `converted-` +
+        job.data.fileName.replaceAll(
+          /\..+$/g,
+          `.${jobConversionTypeInfo.conversionFormat}`,
+        );
       const convertedKey =
         this.conversionService.generateS3Key(convertedFileName);
-      await this.storageService.upload(pngBuffer, convertedKey, 'image/png');
+      await this.storageService.upload(
+        responseBuffer,
+        convertedKey,
+        'image/png',
+      );
 
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
@@ -87,6 +96,7 @@ export class ConversionProcessor extends WorkerHost {
         JSON.stringify(body),
       );
     } catch (e) {
+      console.log(e);
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
           id: job.data.conversionId,
@@ -109,6 +119,28 @@ export class ConversionProcessor extends WorkerHost {
         RedisGatewayEvents.WEBSOCKET_MESSAGE,
         JSON.stringify(body),
       );
+    }
+  }
+
+  private async handleImageConversion<T extends BaseImageConversionDto>(
+    inputBuffer: Buffer,
+    conversionType: string,
+    options: T,
+  ): Promise<Buffer | null> {
+    try {
+      const pngBuffer = await sharp(inputBuffer)
+        [conversionType]({
+          quality: options.quality,
+          compressionLevel: options.compressionLevel,
+          adaptiveFiltering: true,
+        })
+        .resize(options.resizeWidth, options.resizeHeight, {
+          fit: 'fill',
+        })
+        .toBuffer();
+      return pngBuffer;
+    } catch (e) {
+      return null;
     }
   }
 }

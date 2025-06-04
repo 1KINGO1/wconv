@@ -95,6 +95,10 @@ enum ConversionFormat {
   PDF
   PNG
   JPG
+  WEBP
+  AVIF
+  TIFF
+  GIF
 
   @@map("conversion_formats")
 }

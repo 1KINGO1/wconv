@@ -34,6 +34,7 @@ export function Conversion() {
     useState<SupportedConversion | null>(null)
   const { data: recentConversions } = useRecentConversion()
   useConversionStateChange();
+
   useEffect(() => {
     if (file === null) {
       setAvailableConversions([])
@@ -59,6 +60,9 @@ export function Conversion() {
     setSelectedConversion(null)
     setAvailableConversions([])
   }, [error])
+  useEffect(() => {
+    setSelectedConversion(null);
+  }, [availableConversions])
   const selectHandler = (value: string) => {
     setSelectedConversion(
       availableConversions.find(c => c.fileToMimetype === value) ?? null,

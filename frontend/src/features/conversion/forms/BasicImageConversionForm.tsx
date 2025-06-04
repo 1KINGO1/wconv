@@ -14,7 +14,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/shared/components/ui/input'
 
-export function JpgToPngForm(file: File, requestSendUrl: string) {
+export function BasicImageConversionForm(file: File, requestSendUrl: string) {
   return function () {
     const form = useForm({
       resolver: zodResolver(defaultImageConversionSchema),

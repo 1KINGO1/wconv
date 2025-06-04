@@ -5,15 +5,15 @@ import {
 } from '@nestjs/common';
 import { StorageService } from '../libs/storage/storage.service';
 import { Response } from 'express';
-import { Readable } from 'stream';
 import { ConfigService } from '@nestjs/config';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '../../core/prisma/prisma.service';
-import { ConversionFormat, ConversionState, User } from 'prisma/generated';
+import { ConversionState, User } from 'prisma/generated';
 import { JobPayload } from './types/job-payload';
 import { JobType } from './types/job-type.enum';
-import { JpgToPngDto } from './dto/JpgToPng.dto';
+import { BaseImageConversionDto } from './dto/BaseImageConversion.dto';
+import { JobTypeInfo } from './types/job-type-info';
 
 @Injectable()
 export class ConversionService {
@@ -29,15 +29,16 @@ export class ConversionService {
       this.configService.getOrThrow<string>('S3_FILES_FOLDER') + '/';
   }
 
-  async convertJpgToPng(file: Express.Multer.File, options: JpgToPngDto, user: User) {
+  async convertImage(file: Express.Multer.File, jobType: JobType, options: BaseImageConversionDto, user: User) {
+    const jobTypeInfo = JobTypeInfo[jobType];
     const fileName = await this.uploadFileToS3(file);
 
     const conversion = await this.prismaService.conversion.create({
       data: {
         state: ConversionState.PENDING,
         fileFromName: fileName,
-        fileFromFormat: ConversionFormat.JPG,
-        fileToFormat: ConversionFormat.PNG,
+        fileFromFormat: jobTypeInfo.conversionFromFormat,
+        fileToFormat: jobTypeInfo.conversionToFormat,
         userId: user.id,
       },
     });
@@ -48,7 +49,7 @@ export class ConversionService {
       userId: user.id,
       options: JSON.stringify(options)
     };
-    await this.conversionQueue.add(JobType.JPG_TO_PNG, payload);
+    await this.conversionQueue.add(jobType, payload);
 
     return {
       conversion,
