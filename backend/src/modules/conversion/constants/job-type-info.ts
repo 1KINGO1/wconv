@@ -1,6 +1,5 @@
-import { JobType } from './job-type.enum';
 import { ConversionFormat } from 'prisma/generated';
-
+import { JobType } from '../types/job-type.enum';
 
 interface JobTypeInfoItem {
   conversionFormat: string;

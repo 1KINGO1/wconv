@@ -13,7 +13,7 @@ import { ConversionState, User } from 'prisma/generated';
 import { JobPayload } from './types/job-payload';
 import { JobType } from './types/job-type.enum';
 import { BaseImageConversionDto } from './dto/BaseImageConversion.dto';
-import { JobTypeInfo } from './types/job-type-info';
+import { JobTypeInfo } from './constants/job-type-info';
 
 @Injectable()
 export class ConversionService {

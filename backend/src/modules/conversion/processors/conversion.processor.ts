@@ -12,8 +12,8 @@ import { RedisGatewayWebhookMessageBody } from '../../../shared/constants/redis-
 import { RedisService } from 'src/core/redis/redis.service';
 import { RedisGatewayEvents } from '../../../shared/constants/redis-gateway-events.enum';
 import { BaseImageConversionDto } from '../dto/BaseImageConversion.dto';
-import { JobTypeInfo } from '../types/job-type-info';
-import { JobTypeCategories } from '../types/job-type-categories';
+import { JobTypeInfo } from '../constants/job-type-info';
+import { JobTypeCategories } from '../constants/job-type-categories';
 
 @Processor('conversion')
 export class ConversionProcessor extends WorkerHost {

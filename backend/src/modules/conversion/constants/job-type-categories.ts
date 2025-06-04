@@ -1,4 +1,4 @@
-import { JobType } from './job-type.enum';
+import { JobType } from '../types/job-type.enum';
 
 export const JobTypeCategories: Record<string, JobType[]> = {
   IMAGE: [

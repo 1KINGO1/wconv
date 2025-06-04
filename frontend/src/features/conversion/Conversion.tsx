@@ -27,12 +27,10 @@ import { getFileDownloadUrl } from '@/shared/utils/get-file-download-url'
 export function Conversion() {
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
-  const [availableConversions, setAvailableConversions] = useState<
-    SupportedConversion[]
-  >([])
-  const [selectedConversion, setSelectedConversion] =
-    useState<SupportedConversion | null>(null)
+  const [availableConversions, setAvailableConversions] = useState<SupportedConversion[]>([])
+  const [selectedConversion, setSelectedConversion] = useState<SupportedConversion | null>(null)
   const { data: recentConversions } = useRecentConversion()
+
   useConversionStateChange();
 
   useEffect(() => {
@@ -63,12 +61,12 @@ export function Conversion() {
   useEffect(() => {
     setSelectedConversion(null);
   }, [availableConversions])
+
   const selectHandler = (value: string) => {
     setSelectedConversion(
       availableConversions.find(c => c.fileToMimetype === value) ?? null,
     )
   }
-
   const FormElement = useMemo(() => {
     if (!selectedConversion || !file) return null
     return selectedConversion.Form(file, selectedConversion.path)
