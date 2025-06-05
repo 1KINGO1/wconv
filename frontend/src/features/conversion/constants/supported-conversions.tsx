@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { BasicImageConversionForm } from '@/features/conversion/forms/BasicImageConversionForm'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
@@ -10,8 +10,10 @@ export interface SupportedConversion {
   fileToMimetype: MimeType
   fileToType: ConversionFormat
   path: string
-  Form: (file: File, path: string) => FC
+  Form: SupportedConversionForm
 }
+
+export type SupportedConversionForm = FC<{file: File, requestSendUrl: string}>
 
 export const supportedConversions: SupportedConversion[] = [
   // JPG

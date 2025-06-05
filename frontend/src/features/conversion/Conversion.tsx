@@ -72,7 +72,7 @@ export function Conversion() {
   }
   const FormElement = useMemo(() => {
     if (!selectedConversion || !file) return null
-    return selectedConversion.Form(file, selectedConversion.path)
+    return selectedConversion.Form;
   }, [selectedConversion, file])
 
   return (
@@ -102,7 +102,7 @@ export function Conversion() {
               </SelectContent>
             </Select>
           )}
-          {selectedConversion && FormElement && <FormElement />}
+          {selectedConversion && FormElement && file && <FormElement file={file} requestSendUrl={selectedConversion.path}/>}
         </div>
       </Card>
       <div className='flex flex-col gap-2 w-full justify-center'>

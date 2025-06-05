@@ -5,10 +5,12 @@ import { ConversionFormat } from '@/shared/constants/conversion-format'
 import { ConversionState } from '@/shared/constants/conversion-state'
 import { normalizeFileName } from '@/shared/utils/normalize-file-name'
 import { cn } from '@/shared/utils/utils'
+import { copyToClipboard } from '@/shared/utils/copy-to-clipboard'
 
 import Image from 'next/image'
 
 import { FileFormatBadge } from './FileFormatBadge'
+import { Button } from '@/shared/components/ui/button'
 
 interface ConversionItemProps {
   state: ConversionState
@@ -82,15 +84,23 @@ export function ConversionItem(props: ConversionItemProps) {
           <FileFormatBadge>{props.fileToFormat}</FileFormatBadge>
         </div>
       </div>
-      <div className='flex-1 flex justify-end'>
+      <div className='flex-1 flex gap-2 justify-end'>
         {props.state === ConversionState.SUCCESS && props.fileToUrl && (
-          <RedirectButton
-            className='text-sm'
-            url={props.fileToUrl}
-            blank={true}
-          >
-            Download
-          </RedirectButton>
+          <>
+            <Button
+              className='text-sm'
+              onClick={() => copyToClipboard(props.fileToUrl!)}
+            >
+              Copy Link
+            </Button>
+            <RedirectButton
+              className='text-sm'
+              url={props.fileToUrl}
+              blank={true}
+            >
+              Download
+            </RedirectButton>
+          </>
         )}
       </div>
     </Card>
