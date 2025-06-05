@@ -6,7 +6,7 @@ class ConversionService {
   async convert(
     path: string,
     file: File,
-    options?: Record<string, any>,
+    options?: Record,
     onProgress?: (progress: number) => void,
   ) {
     const formData = new FormData()
@@ -21,26 +21,20 @@ class ConversionService {
       }
     }
 
-    return apiWithAuth.post<{ conversion: Conversion }>(
-      Urls.conversion(path),
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: progressEvent => {
-          if (onProgress && progressEvent.total) {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total,
-            )
-            onProgress(percentCompleted)
-          }
-        },
+    return apiWithAuth.post<{ conversion: Conversion }>(Urls.conversion(path), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
       },
-    )
+      onUploadProgress: progressEvent => {
+        if (onProgress && progressEvent.total) {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          onProgress(percentCompleted)
+        }
+      },
+    })
   }
 
-  async getConversions(): Promise<Conversion[]> {
+  async getConversions(): Promise {
     const { data } = await apiWithAuth.get<Conversion[]>(Urls.conversions)
     return data
   }

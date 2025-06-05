@@ -93,6 +93,10 @@ enum ConversionState {
 
 enum ConversionFormat {
   PDF
+  DOCX
+  XLSX
+  PPTX
+
   PNG
   JPG
   WEBP

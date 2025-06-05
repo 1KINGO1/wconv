@@ -8,5 +8,4 @@ export const ConversionFormat = {
   GIF: 'GIF',
 } as const
 
-export type ConversionFormat =
-  (typeof ConversionFormat)[keyof typeof ConversionFormat]
+export type ConversionFormat = (typeof ConversionFormat)[keyof typeof ConversionFormat]

@@ -51,10 +51,7 @@ export function AuthWrapper({
         <CardContent>{children}</CardContent>
         <CardFooter className='flex justify-end'>
           {backButtonHref && (
-            <Link
-              href={backButtonHref}
-              className='text-secondary font-light text-sm'
-            >
+            <Link href={backButtonHref} className='text-secondary font-light text-sm'>
               {backButtonLabel}
             </Link>
           )}

@@ -3,9 +3,9 @@ import {
   MaxFileSizeValidator,
   ParseFilePipe,
   UploadedFile,
-} from '@nestjs/common';
+} from '@nestjs/common'
 
-const MB_SIZE = 1000000;
+const MB_SIZE = 1000000
 
 export const File = (maxSizeMd: number, fileType: RegExp) =>
   UploadedFile(
@@ -15,4 +15,4 @@ export const File = (maxSizeMd: number, fileType: RegExp) =>
         new FileTypeValidator({ fileType: fileType }),
       ],
     }),
-  );
+  )

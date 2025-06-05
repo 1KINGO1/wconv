@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
-import { RedisGatewayService } from './redis-gateway.service';
-import { WebsocketModule } from '../websocket/websocket.module';
+import { WebsocketModule } from '../websocket/websocket.module'
+import { Module } from '@nestjs/common'
+
+import { RedisGatewayService } from './redis-gateway.service'
 
 @Module({
   providers: [RedisGatewayService],

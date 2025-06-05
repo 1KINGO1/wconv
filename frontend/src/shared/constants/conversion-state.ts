@@ -4,5 +4,4 @@ export const ConversionState = {
   SUCCESS: 'SUCCESS',
 } as const
 
-export type ConversionState =
-  (typeof ConversionState)[keyof typeof ConversionState]
+export type ConversionState = (typeof ConversionState)[keyof typeof ConversionState]

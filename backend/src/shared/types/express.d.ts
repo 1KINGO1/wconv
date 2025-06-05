@@ -1,7 +1,7 @@
-import { User } from 'prisma/generated';
+import { User } from 'prisma/generated'
 
 declare module 'express' {
   interface Request {
-    user: User;
+    user: User
   }
 }

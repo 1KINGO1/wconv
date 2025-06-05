@@ -1,16 +1,16 @@
-import { Global, Module } from '@nestjs/common';
-import { PrismaModule } from './prisma/prisma.module';
-import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from '../modules/auth/auth.module';
-import { UserModule } from '../modules/user/user.module';
-import { TokenModule } from '../modules/auth/token/token.module';
-import { ConversionModule } from '../modules/conversion/conversion.module';
-import { StorageModule } from '../modules/libs/storage/storage.module';
-import { RedisModule } from './redis/redis.module';
-import { BullModule } from '@nestjs/bullmq';
-import { RedisService } from './redis/redis.service';
-import { WebsocketModule } from '../modules/websocket/websocket.module';
-import { RedisGatewayModule } from '../modules/redis-gateway/redis-gateway.module';
+import { AuthModule } from '../modules/auth/auth.module'
+import { TokenModule } from '../modules/auth/token/token.module'
+import { ConversionModule } from '../modules/conversion/conversion.module'
+import { StorageModule } from '../modules/libs/storage/storage.module'
+import { RedisGatewayModule } from '../modules/redis-gateway/redis-gateway.module'
+import { UserModule } from '../modules/user/user.module'
+import { WebsocketModule } from '../modules/websocket/websocket.module'
+import { PrismaModule } from './prisma/prisma.module'
+import { RedisModule } from './redis/redis.module'
+import { RedisService } from './redis/redis.service'
+import { BullModule } from '@nestjs/bullmq'
+import { Global, Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { RedisGatewayModule } from '../modules/redis-gateway/redis-gateway.modul
       useFactory: (redisService: RedisService) => {
         return {
           connection: redisService,
-        };
+        }
       },
     }),
     WebsocketModule,

@@ -13,7 +13,7 @@ export interface SupportedConversion {
   Form: SupportedConversionForm
 }
 
-export type SupportedConversionForm = FC<{file: File, requestSendUrl: string}>
+export type SupportedConversionForm = FC
 
 export const supportedConversions: SupportedConversion[] = [
   // JPG

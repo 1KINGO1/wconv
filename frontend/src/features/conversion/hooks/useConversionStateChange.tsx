@@ -43,16 +43,10 @@ export function useConversionStateChange() {
       queryClient.setQueryData([QueryKeys.Conversations], updateCache)
     }
 
-    socket.on(
-      WebsocketEvents.ConversionStateUpdate,
-      conversionStateChangedHandler,
-    )
+    socket.on(WebsocketEvents.ConversionStateUpdate, conversionStateChangedHandler)
 
     return () => {
-      socket.off(
-        WebsocketEvents.ConversionStateUpdate,
-        conversionStateChangedHandler,
-      )
+      socket.off(WebsocketEvents.ConversionStateUpdate, conversionStateChangedHandler)
     }
   }, [socket])
 }

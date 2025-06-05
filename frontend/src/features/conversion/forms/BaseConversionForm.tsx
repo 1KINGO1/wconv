@@ -7,8 +7,8 @@ import { Button } from '@/shared/components/ui/button'
 import { Form } from '@/shared/components/ui/form'
 
 interface BaseConversionFormParams<T extends FieldValues> extends PropsWithChildren {
-  form: UseFormReturn<T>
-  mutateFunction: (data: T) => Promise<void>
+  form: UseFormReturn
+  mutateFunction: (data: T) => Promise
   buttonText?: string
 }
 
@@ -16,8 +16,8 @@ export function BaseConversionForm<T extends FieldValues>({
   children,
   form,
   mutateFunction,
-  buttonText
-}: BaseConversionFormParams<T>) {
+  buttonText,
+}: BaseConversionFormParams) {
   const [loading, setLoading] = useState(false)
 
   const submitHandler = async (data: T) => {

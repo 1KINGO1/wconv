@@ -1,10 +1,11 @@
-import { ConversionFormat } from 'prisma/generated';
-import { JobType } from './job-type.enum';
+import { ConversionFormat } from 'prisma/generated'
+
+import { JobType } from './job-type.enum'
 
 interface JobTypeInfoItem {
-  conversionFormat: string;
-  conversionFromFormat: ConversionFormat;
-  conversionToFormat: ConversionFormat;
+  conversionFormat: string
+  conversionFromFormat: ConversionFormat
+  conversionToFormat: ConversionFormat
 }
 
 export const JobTypeInfo: Record<JobType, JobTypeInfoItem> = {
@@ -169,6 +170,13 @@ export const JobTypeInfo: Record<JobType, JobTypeInfoItem> = {
     conversionFromFormat: ConversionFormat.GIF,
     conversionToFormat: ConversionFormat.TIFF,
   },
-} as const;
 
-export type JobTypeInfo = (typeof JobTypeInfo)[JobType];
+  /* PDF */
+  [JobType.PDF_TO_DOCX]: {
+    conversionFormat: 'docx',
+    conversionFromFormat: ConversionFormat.PDF,
+    conversionToFormat: ConversionFormat.DOCX,
+  },
+} as const
+
+export type JobTypeInfo = (typeof JobTypeInfo)[JobType]

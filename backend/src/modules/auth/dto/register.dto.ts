@@ -1,27 +1,22 @@
-import {
-  IsNotEmpty,
-  IsString,
-  MaxLength,
-  MinLength,
-  Validate,
-} from 'class-validator';
-import { MatchPasswordConstraint } from '../../../shared/decorators/password-match.constraint';
+import { IsNotEmpty, IsString, MaxLength, MinLength, Validate } from 'class-validator'
+
+import { MatchPasswordConstraint } from '../../../shared/decorators/password-match.constraint'
 
 export class RegisterDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(4)
   @MaxLength(14)
-  username: string;
+  username: string
 
   @IsNotEmpty()
   @IsString()
   @MinLength(4)
   @MaxLength(30)
-  password: string;
+  password: string
 
   @IsNotEmpty()
   @IsString()
   @Validate(MatchPasswordConstraint)
-  passwordMatch: string;
+  passwordMatch: string
 }

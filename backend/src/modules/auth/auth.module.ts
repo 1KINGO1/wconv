@@ -1,9 +1,10 @@
-import { Global, Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-import { GoogleStrategy } from './strategies/google.strategy';
-import { PassportModule } from '@nestjs/passport';
-import { TokenModule } from './token/token.module';
+import { GoogleStrategy } from './strategies/google.strategy'
+import { TokenModule } from './token/token.module'
+import { Global, Module } from '@nestjs/common'
+import { PassportModule } from '@nestjs/passport'
+
+import { AuthController } from './auth.controller'
+import { AuthService } from './auth.service'
 
 @Global()
 @Module({

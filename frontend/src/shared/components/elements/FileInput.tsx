@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  ChangeEvent,
-  Dispatch,
-  DragEvent,
-  SetStateAction,
-  useState,
-} from 'react'
+import { ChangeEvent, Dispatch, DragEvent, SetStateAction, useState } from 'react'
 
 import { convertBytesToMb } from '@/shared/utils/convert-bytes-to-mb'
 import { cn } from '@/shared/utils/utils'
@@ -16,23 +10,14 @@ interface FileInputProps {
   invalidMimeTypeMessage?: string
   invalidSizeMessage?: string
   file: File | null
-  setFile: Dispatch<SetStateAction<null | File>>
+  setFile: Dispatch
   error: string | null
-  setError: Dispatch<SetStateAction<null | string>>
+  setError: Dispatch
 }
 
-export function FileInput({
-  file,
-  setFile,
-  error,
-  setError,
-  ...props
-}: FileInputProps) {
+export function FileInput({ file, setFile, error, setError, ...props }: FileInputProps) {
   const validateFileMIMEType = (file: File) => {
-    if (
-      props.allowedMIMEType !== undefined &&
-      file.type !== props.allowedMIMEType
-    ) {
+    if (props.allowedMIMEType !== undefined && file.type !== props.allowedMIMEType) {
       setError(props.invalidMimeTypeMessage ?? null)
     }
   }
@@ -50,7 +35,7 @@ export function FileInput({
     setFile(droppedFile)
   }
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent) => {
     setError(null)
     setFile(null)
 
@@ -78,19 +63,9 @@ export function FileInput({
       onDragOver={handleDragOver}
     >
       {error !== null && <p className='text-red-400'>{error}</p>}
-      <p className='text-gray-600'>
-        Drag & drop files here, or click to select
-      </p>
-      <input
-        type='file'
-        id='file'
-        className='hidden'
-        onChange={handleFileChange}
-      />
-      <label
-        htmlFor='file'
-        className='block mt-2 text-blue-500 underline cursor-pointer'
-      >
+      <p className='text-gray-600'>Drag & drop files here, or click to select</p>
+      <input type='file' id='file' className='hidden' onChange={handleFileChange} />
+      <label htmlFor='file' className='block mt-2 text-blue-500 underline cursor-pointer'>
         Browse files
       </label>
       {file !== null && (

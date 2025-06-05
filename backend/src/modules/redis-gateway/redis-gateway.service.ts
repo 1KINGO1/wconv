@@ -1,8 +1,8 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { RedisService } from '../../core/redis/redis.service';
-import { WebsocketGateway } from '../websocket/websocket.gateway';
-import { RedisGatewayEvents } from '../../shared/constants/redis-gateway-events.enum';
-import { RedisGatewayWebhookMessageBody } from '../../shared/constants/redis-gateway-event-bodies';
+import { RedisService } from '../../core/redis/redis.service'
+import { RedisGatewayWebhookMessageBody } from '../../shared/constants/redis-gateway-event-bodies'
+import { RedisGatewayEvents } from '../../shared/constants/redis-gateway-events.enum'
+import { WebsocketGateway } from '../websocket/websocket.gateway'
+import { Injectable, OnModuleInit } from '@nestjs/common'
 
 @Injectable()
 export class RedisGatewayService implements OnModuleInit {
@@ -12,23 +12,21 @@ export class RedisGatewayService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    await this.redisService.subscriber.subscribe(
-      RedisGatewayEvents.WEBSOCKET_MESSAGE,
-    );
+    await this.redisService.subscriber.subscribe(RedisGatewayEvents.WEBSOCKET_MESSAGE)
 
     this.redisService.subscriber.on('message', (channel, message) => {
       switch (channel) {
         case RedisGatewayEvents.WEBSOCKET_MESSAGE:
-          this.handleWebsocketMessageEvent(message);
-          break;
+          this.handleWebsocketMessageEvent(message)
+          break
         default:
-          console.log('Unknown event', channel);
+          console.log('Unknown event', channel)
       }
-    });
+    })
   }
 
   private async handleWebsocketMessageEvent(message: string) {
-    const body: RedisGatewayWebhookMessageBody = JSON.parse(message);
-    this.websocketService.emitToUser(body.userId, body.eventName, body.body);
+    const body: RedisGatewayWebhookMessageBody = JSON.parse(message)
+    this.websocketService.emitToUser(body.userId, body.eventName, body.body)
   }
 }

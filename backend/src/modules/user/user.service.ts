@@ -1,15 +1,15 @@
+import { PrismaService } from '../../core/prisma/prisma.service'
+import {
+  OAuthCreateUserParams,
+  PasswordCreateUserParams,
+} from './types/create-user-params.interface'
 import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../../core/prisma/prisma.service';
-import {
-  OAuthCreateUserParams,
-  PasswordCreateUserParams,
-} from './types/create-user-params.interface';
-import { Prisma, UserLinkProvider } from 'prisma/generated';
+} from '@nestjs/common'
+import { Prisma, UserLinkProvider } from 'prisma/generated'
 
 @Injectable()
 export class UserService {
@@ -46,20 +46,20 @@ export class UserService {
           links: true,
           credentials: true,
         },
-      });
+      })
     } catch (err) {
-      console.log(err);
+      console.log(err)
       if (
         err instanceof Prisma.PrismaClientKnownRequestError &&
         err.code === 'P2002' // unique constraint violation
       ) {
-        const target = Array.isArray(err.meta?.target) ? err.meta.target : [];
+        const target = Array.isArray(err.meta?.target) ? err.meta.target : []
         if (target.includes('username')) {
-          throw new ConflictException(`User with this username already exists`);
+          throw new ConflictException(`User with this username already exists`)
         }
       }
 
-      throw new InternalServerErrorException('Could not create user');
+      throw new InternalServerErrorException('Could not create user')
     }
   }
   async getByUsername(username: string, withCredentials = false) {
@@ -67,13 +67,13 @@ export class UserService {
       where: {
         username,
       },
-    });
+    })
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('User not found')
     }
 
-    return user;
+    return user
   }
   async dangerGetByUsernameWithCredentials(username: string) {
     const user = await this.prismaService.user.findUnique({
@@ -90,13 +90,13 @@ export class UserService {
           },
         },
       },
-    });
+    })
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('User not found')
     }
 
-    return user;
+    return user
   }
   async getByProvider(provider: UserLinkProvider, providerUserId: string) {
     const userLink = await this.prismaService.userLink.findUnique({
@@ -109,23 +109,23 @@ export class UserService {
       include: {
         user: true,
       },
-    });
+    })
 
     if (!userLink) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('User not found')
     }
 
-    return userLink.user;
+    return userLink.user
   }
   async getById(id: string) {
     const user = await this.prismaService.user.findUnique({
       where: {
         id,
       },
-    });
+    })
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('User not found')
     }
-    return user;
+    return user
   }
 }

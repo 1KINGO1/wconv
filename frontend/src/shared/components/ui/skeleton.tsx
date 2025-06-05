@@ -1,6 +1,6 @@
 import { cn } from '@/shared/utils/utils'
 
-function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
+function Skeleton({ className, ...props }: React.ComponentProps) {
   return (
     <div
       data-slot='skeleton'

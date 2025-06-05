@@ -29,9 +29,7 @@ export function MyConversions() {
               fileToFormat={conversion.fileToFormat}
               fileToName={conversion?.fileToName}
               fileToUrl={
-                conversion?.fileToName
-                  ? getFileDownloadUrl(conversion.fileToName)
-                  : undefined
+                conversion?.fileToName ? getFileDownloadUrl(conversion.fileToName) : undefined
               }
             />
           ))

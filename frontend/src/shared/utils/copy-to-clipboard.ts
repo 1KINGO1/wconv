@@ -1,8 +1,8 @@
-export async function copyToClipboard(text: string): Promise<void> {
+export async function copyToClipboard(text: string): Promise {
   try {
-    await navigator.clipboard.writeText(text);
-    console.log('Copied to clipboard!');
+    await navigator.clipboard.writeText(text)
+    console.log('Copied to clipboard!')
   } catch (err) {
-    console.error('Failed to copy: ', err);
+    console.error('Failed to copy: ', err)
   }
 }
