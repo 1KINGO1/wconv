@@ -15,7 +15,10 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
-import { registerSchema, TypeRegisterSchema } from '@/shared/schemas/register.schema'
+import {
+  registerSchema,
+  TypeRegisterSchema,
+} from '@/shared/schemas/register.schema'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -46,7 +49,9 @@ export function RegisterForm() {
       const error = e as AxiosError
       if (error.status === 409) {
         return form.setError('username', {
-          message: (error.response?.data as { message: string })?.message ?? error.message,
+          message:
+            (error.response?.data as { message: string })?.message ??
+            error.message,
         })
       }
     }
@@ -61,7 +66,10 @@ export function RegisterForm() {
     >
       <div className='flex flex-col gap-5'>
         <Form {...form}>
-          <form className='flex flex-col gap-5' onSubmit={form.handleSubmit(submitHandler)}>
+          <form
+            className='flex flex-col gap-5'
+            onSubmit={form.handleSubmit(submitHandler)}
+          >
             <FormField
               control={form.control}
               name='username'
@@ -95,7 +103,11 @@ export function RegisterForm() {
                 <FormItem>
                   <FormLabel>Repeat Password</FormLabel>
                   <FormControl>
-                    <Input placeholder='Repeat Password' type='password' {...field} />
+                    <Input
+                      placeholder='Repeat Password'
+                      type='password'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

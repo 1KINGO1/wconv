@@ -1,6 +1,6 @@
 import { MimeType } from '@/shared/constants/mimetype'
 
-export const mimeDescriptions: Record = {
+export const mimeDescriptions: Record<MimeType, string> = {
   [MimeType.JPEG]: '.jpg and .jpeg image files',
   [MimeType.PNG]: '.png image files',
   [MimeType.GIF]: '.gif image files',

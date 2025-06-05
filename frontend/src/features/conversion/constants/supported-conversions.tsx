@@ -3,6 +3,7 @@ import { FC, ReactNode } from 'react'
 import { BasicImageConversionForm } from '@/features/conversion/forms/BasicImageConversionForm'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
 import { MimeType } from '@/shared/constants/mimetype'
+import { EmptyForm } from '@/features/conversion/forms/EmptyForm'
 
 export interface SupportedConversion {
   fileFromMimetype: MimeType
@@ -13,7 +14,7 @@ export interface SupportedConversion {
   Form: SupportedConversionForm
 }
 
-export type SupportedConversionForm = FC
+export type SupportedConversionForm = FC<{file: File, requestSendUrl: string}>
 
 export const supportedConversions: SupportedConversion[] = [
   // JPG
@@ -183,5 +184,13 @@ export const supportedConversions: SupportedConversion[] = [
     fileToType: ConversionFormat.TIFF,
     path: 'avif-to-tiff',
     Form: BasicImageConversionForm,
+  },
+  {
+    fileFromMimetype: MimeType.PDF,
+    fileFromType: ConversionFormat.PDF,
+    fileToMimetype: MimeType.MS_WORD,
+    fileToType: ConversionFormat.DOCX,
+    path: 'pdf-to-docx',
+    Form: EmptyForm,
   },
 ]

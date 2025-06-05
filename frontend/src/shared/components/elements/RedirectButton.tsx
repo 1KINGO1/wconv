@@ -8,8 +8,8 @@ import { Button, buttonVariants } from '@/shared/components/ui/button'
 import { useRouter } from 'next/navigation'
 
 export function RedirectButton(
-  props: React.ComponentProps &
-    VariantProps & {
+  props: React.ComponentProps<'button'> &
+    VariantProps<typeof buttonVariants> & {
       asChild?: boolean
       url: string
       blank?: boolean

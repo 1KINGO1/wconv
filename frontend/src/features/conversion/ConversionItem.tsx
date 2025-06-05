@@ -1,16 +1,16 @@
 import { RedirectButton } from '@/shared/components/elements/RedirectButton'
-import { Button } from '@/shared/components/ui/button'
 import { Card } from '@/shared/components/ui/card'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ConversionFormat } from '@/shared/constants/conversion-format'
 import { ConversionState } from '@/shared/constants/conversion-state'
-import { copyToClipboard } from '@/shared/utils/copy-to-clipboard'
 import { normalizeFileName } from '@/shared/utils/normalize-file-name'
 import { cn } from '@/shared/utils/utils'
+import { copyToClipboard } from '@/shared/utils/copy-to-clipboard'
 
 import Image from 'next/image'
 
 import { FileFormatBadge } from './FileFormatBadge'
+import { Button } from '@/shared/components/ui/button'
 
 interface ConversionItemProps {
   state: ConversionState
@@ -22,7 +22,7 @@ interface ConversionItemProps {
   fileToFormat: ConversionFormat
 }
 
-const colorMap: Record = {
+const colorMap: Record<ConversionState, string> = {
   [ConversionState.PENDING]: 'bg-pending',
   [ConversionState.FAILED]: 'bg-failed',
   [ConversionState.SUCCESS]: 'bg-success',
@@ -61,7 +61,12 @@ export function ConversionItem(props: ConversionItemProps) {
 
         {props.state !== ConversionState.PENDING && (
           <div className='min-w-5'>
-            <Image src='/arrow_right.png' alt='Arrow right' width={20} height={20} />
+            <Image
+              src='/arrow_right.png'
+              alt='Arrow right'
+              width={20}
+              height={20}
+            />
           </div>
         )}
 
@@ -82,10 +87,17 @@ export function ConversionItem(props: ConversionItemProps) {
       <div className='flex-1 flex gap-2 justify-end'>
         {props.state === ConversionState.SUCCESS && props.fileToUrl && (
           <>
-            <Button className='text-sm' onClick={() => copyToClipboard(props.fileToUrl!)}>
+            <Button
+              className='text-sm'
+              onClick={() => copyToClipboard(props.fileToUrl!)}
+            >
               Copy Link
             </Button>
-            <RedirectButton className='text-sm' url={props.fileToUrl} blank={true}>
+            <RedirectButton
+              className='text-sm'
+              url={props.fileToUrl}
+              blank={true}
+            >
               Download
             </RedirectButton>
           </>

@@ -21,7 +21,10 @@ import {
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export const BasicImageConversionForm: SupportedConversionForm = ({ file, requestSendUrl }) => {
+export const BasicImageConversionForm: SupportedConversionForm = ({
+  file,
+  requestSendUrl,
+}) => {
   const form = useForm({
     resolver: zodResolver(defaultImageConversionSchema),
     defaultValues: {
@@ -32,10 +35,15 @@ export const BasicImageConversionForm: SupportedConversionForm = ({ file, reques
     },
   })
   const [progress, setProgress] = useState(0)
-  const conversionMutation = useCreateConversion(requestSendUrl, file, setProgress)
+  const conversionMutation = useCreateConversion(
+    requestSendUrl,
+    file,
+    setProgress,
+  )
 
   const submitHandler = async (data: DefaultImageConversionSchemaType) => {
     await conversionMutation.mutateAsync(data)
+    setProgress(0)
   }
 
   return (
@@ -99,7 +107,11 @@ export const BasicImageConversionForm: SupportedConversionForm = ({ file, reques
                 max={10000}
                 {...field}
                 value={field.value ?? ''}
-                onChange={e => field.onChange(e.target.value ? parseInt(e.target.value, 10) : null)}
+                onChange={e =>
+                  field.onChange(
+                    e.target.value ? parseInt(e.target.value, 10) : null,
+                  )
+                }
               />
             </FormControl>
             <FormMessage />
@@ -120,7 +132,11 @@ export const BasicImageConversionForm: SupportedConversionForm = ({ file, reques
                 max={10000}
                 {...field}
                 value={field.value ?? ''}
-                onChange={e => field.onChange(e.target.value ? parseInt(e.target.value, 10) : null)}
+                onChange={e =>
+                  field.onChange(
+                    e.target.value ? parseInt(e.target.value, 10) : null,
+                  )
+                }
               />
             </FormControl>
             <FormMessage />

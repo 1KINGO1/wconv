@@ -6,6 +6,8 @@ export const ConversionFormat = {
   TIFF: 'TIFF',
   AVIF: 'AVIF',
   GIF: 'GIF',
+  DOCX: 'DOCX',
 } as const
 
-export type ConversionFormat = (typeof ConversionFormat)[keyof typeof ConversionFormat]
+export type ConversionFormat =
+  (typeof ConversionFormat)[keyof typeof ConversionFormat]

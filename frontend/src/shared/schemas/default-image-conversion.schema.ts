@@ -7,4 +7,6 @@ export const defaultImageConversionSchema = z.object({
   resizeHeight: z.number().min(1).max(10000).nullable(),
 })
 
-export type DefaultImageConversionSchemaType = z.infer
+export type DefaultImageConversionSchemaType = z.infer<
+  typeof defaultImageConversionSchema
+>

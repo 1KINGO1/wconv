@@ -3,7 +3,7 @@ import { Urls } from '@/shared/constants/urls'
 import { User } from '@/shared/entity/User'
 
 class CurrentUserService {
-  async getCurrentUser(): Promise {
+  async getCurrentUser(): Promise<User> {
     const { data } = await apiWithAuth.get(Urls.currentUser)
     return data
   }

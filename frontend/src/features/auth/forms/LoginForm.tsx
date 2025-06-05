@@ -39,7 +39,9 @@ export function LoginForm() {
       router.push('/conversion/dashboard')
     } catch (e) {
       const error = e as AxiosError
-      const responseData = error.response?.data as { message: string } | undefined
+      const responseData = error.response?.data as
+        | { message: string }
+        | undefined
 
       if (responseData && responseData.message === 'User not found') {
         return form.setError('username', {
@@ -66,7 +68,10 @@ export function LoginForm() {
     >
       <div className='flex flex-col gap-5'>
         <Form {...form}>
-          <form className='flex flex-col gap-5' onSubmit={form.handleSubmit(submitHandler)}>
+          <form
+            className='flex flex-col gap-5'
+            onSubmit={form.handleSubmit(submitHandler)}
+          >
             <FormField
               control={form.control}
               name='username'
@@ -97,7 +102,10 @@ export function LoginForm() {
           </form>
         </Form>
         <Separator />
-        <RedirectButton variant='outline' url='http://localhost:3000/api/auth/google'>
+        <RedirectButton
+          variant='outline'
+          url='http://localhost:3000/api/auth/google'
+        >
           Log In with Google
         </RedirectButton>
       </div>

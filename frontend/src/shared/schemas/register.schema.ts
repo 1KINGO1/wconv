@@ -6,4 +6,4 @@ export const registerSchema = z.object({
   passwordMatch: z.string().min(4).max(30),
 })
 
-export type TypeRegisterSchema = z.infer
+export type TypeRegisterSchema = z.infer<typeof registerSchema>

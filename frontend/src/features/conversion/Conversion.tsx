@@ -27,8 +27,11 @@ import { getFileDownloadUrl } from '@/shared/utils/get-file-download-url'
 export function Conversion() {
   const [file, setFile] = useState<File | null>(null)
   const [error, setError] = useState<null | string>(null)
-  const [availableConversions, setAvailableConversions] = useState<SupportedConversion[]>([])
-  const [selectedConversion, setSelectedConversion] = useState<SupportedConversion | null>(null)
+  const [availableConversions, setAvailableConversions] = useState<
+    SupportedConversion[]
+  >([])
+  const [selectedConversion, setSelectedConversion] =
+    useState<SupportedConversion | null>(null)
   const { data: recentConversions } = useRecentConversion()
 
   useConversionStateChange()
@@ -63,17 +66,24 @@ export function Conversion() {
   }, [availableConversions])
 
   const selectHandler = (value: string) => {
-    setSelectedConversion(availableConversions.find(c => c.fileToMimetype === value) ?? null)
+    setSelectedConversion(
+      availableConversions.find(c => c.fileToMimetype === value) ?? null,
+    )
   }
   const FormElement = useMemo(() => {
     if (!selectedConversion || !file) return null
-    return selectedConversion.Form
+    return selectedConversion.Form;
   }, [selectedConversion, file])
 
   return (
     <div className='flex flex-col gap-8 justify-center items-center'>
       <Card className='p-8'>
-        <FileInput file={file} setFile={setFile} error={error} setError={setError} />
+        <FileInput
+          file={file}
+          setFile={setFile}
+          error={error}
+          setError={setError}
+        />
         <div className='flex flex-col gap-4 justify-center items-center'>
           {availableConversions.length > 0 && (
             <Select onValueChange={selectHandler}>
@@ -92,9 +102,7 @@ export function Conversion() {
               </SelectContent>
             </Select>
           )}
-          {selectedConversion && FormElement && file && (
-            <FormElement file={file} requestSendUrl={selectedConversion.path} />
-          )}
+          {selectedConversion && FormElement && file && <FormElement file={file} requestSendUrl={selectedConversion.path}/>}
         </div>
       </Card>
       <div className='flex flex-col gap-2 w-full justify-center'>

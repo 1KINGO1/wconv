@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { promises as fs } from 'fs'
-import path from 'path'
-import os from 'os'
+import * as path from 'path'
+import * as os from 'os'
 import { spawn } from 'child_process'
 
 @Injectable()

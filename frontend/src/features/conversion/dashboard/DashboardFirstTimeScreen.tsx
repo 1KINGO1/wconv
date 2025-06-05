@@ -6,9 +6,13 @@ export function DashboardFirstTimeScreen() {
     <div className='text-center'>
       <h1 className='text-3xl'>Convert Your Files Effortlessly</h1>
       <p className='text-xl font-light mt-4'>
-        Choose from a wide range of file conversion categories to suit your needs.
+        Choose from a wide range of file conversion categories to suit your
+        needs.
       </p>
-      <RedirectButton className='mt-9 text-lg font-normal px-8 py-5' url='/conversion/'>
+      <RedirectButton
+        className='mt-9 text-lg font-normal px-8 py-5'
+        url='/conversion/'
+      >
         Get Started
       </RedirectButton>
 

@@ -12,11 +12,15 @@ export function useCreateConversion(
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (options: Record) => conversionService.convert(path, file, options, onProgress),
+    mutationFn: (options: Record<string, any>) =>
+      conversionService.convert(path, file, options, onProgress),
     onSuccess: data => {
-      queryClient.setQueryData([QueryKeys.RecentConversions], (prevData: Conversion[]) => {
-        return [data.data.conversion, ...prevData]
-      })
+      queryClient.setQueryData(
+        [QueryKeys.RecentConversions],
+        (prevData: Conversion[]) => {
+          return [data.data.conversion, ...prevData]
+        },
+      )
     },
   })
 }
