@@ -13,24 +13,8 @@ export class PdfToDocxConversionService implements OnModuleInit {
     }
   }
 
-  async processPdfToDocx(inputBuffer: Buffer, conversionType: string) {
-    let tempInputPath: string | null = null
-    let tempOutputPath: string | null = null
-
+  async processPdfToDocx(tempInputPath: string, tempOutputPath: string) {
     try {
-      // Create temporary directory
-      const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'pdf-conversion-'))
-
-      // Generate unique filenames
-      const timestamp = Date.now()
-      const randomId = Math.random().toString(36).substring(7)
-      tempInputPath = path.join(tempDir, `input-${timestamp}-${randomId}.pdf`)
-      tempOutputPath = path.join(tempDir, `output-${timestamp}-${randomId}.docx`)
-
-      // Write input buffer to temporary file
-      await fs.writeFile(tempInputPath, inputBuffer)
-
-      // Verify input file exists and has content
       const stats = await fs.stat(tempInputPath)
       if (stats.size === 0) {
         throw new Error('Input PDF file is empty')
@@ -49,15 +33,6 @@ export class PdfToDocxConversionService implements OnModuleInit {
       } catch (error) {
         throw new Error('Output DOCX file was not created')
       }
-
-      // Read the converted DOCX file
-      const outputBuffer = await fs.readFile(tempOutputPath)
-
-      if (outputBuffer.length === 0) {
-        throw new Error('Output DOCX file is empty')
-      }
-
-      return outputBuffer
     } catch (error) {
       console.error('PDF to DOCX conversion error:', error)
 
@@ -65,17 +40,10 @@ export class PdfToDocxConversionService implements OnModuleInit {
       if (error instanceof Error) {
         console.error('Error details:', {
           message: error.message,
-          conversionType,
-          inputBufferSize: inputBuffer.length,
           tempInputPath,
           tempOutputPath,
         })
       }
-
-      return null
-    } finally {
-      // Cleanup temporary files
-      await this.cleanupTempFiles([tempInputPath, tempOutputPath])
     }
   }
 

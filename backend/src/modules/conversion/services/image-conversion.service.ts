@@ -6,12 +6,13 @@ import { Injectable } from '@nestjs/common'
 @Injectable()
 export class ImageConversionService {
   async processImage<T extends BaseImageConversionDto>(
-    inputBuffer: Buffer,
+    inputPath: string,
+    outputPath: string,
     conversionType: string,
     options: T,
   ) {
     try {
-      const responseBuffer = await sharp(inputBuffer)
+      await sharp(inputPath)
         [conversionType]({
           quality: options.quality,
           compressionLevel: options.compressionLevel,
@@ -20,10 +21,9 @@ export class ImageConversionService {
         .resize(options.resizeWidth, options.resizeHeight, {
           fit: 'fill',
         })
-        .toBuffer()
-      return responseBuffer
+        .toFile(outputPath)
     } catch (e) {
-      return null
+      throw new Error(e);
     }
   }
 }

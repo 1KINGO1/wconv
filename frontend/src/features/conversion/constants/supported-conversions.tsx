@@ -193,4 +193,13 @@ export const supportedConversions: SupportedConversion[] = [
     path: 'pdf-to-docx',
     Form: EmptyForm,
   },
+
+  {
+    fileFromMimetype: MimeType.MS_WORD_OPENXML,
+    fileFromType: ConversionFormat.DOCX,
+    fileToMimetype: MimeType.PDF,
+    fileToType: ConversionFormat.PDF,
+    path: 'docx-to-pdf',
+    Form: EmptyForm,
+  },
 ]

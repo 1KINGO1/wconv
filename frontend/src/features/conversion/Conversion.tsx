@@ -55,6 +55,7 @@ export function Conversion() {
     }
 
     setAvailableConversions(availableConversions)
+    setSelectedConversion(null)
   }, [file])
   useEffect(() => {
     if (error === null) return
@@ -86,7 +87,7 @@ export function Conversion() {
         />
         <div className='flex flex-col gap-4 justify-center items-center'>
           {availableConversions.length > 0 && (
-            <Select onValueChange={selectHandler}>
+            <Select onValueChange={selectHandler} value={selectedConversion?.fileToMimetype ?? undefined}>
               <SelectTrigger className='w-[240px]'>
                 <SelectValue placeholder='Select a format to convert' />
               </SelectTrigger>

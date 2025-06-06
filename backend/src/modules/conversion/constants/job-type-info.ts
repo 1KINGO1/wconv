@@ -177,6 +177,18 @@ export const JobTypeInfo: Record<JobType, JobTypeInfoItem> = {
     conversionFromFormat: ConversionFormat.PDF,
     conversionToFormat: ConversionFormat.DOCX,
   },
+  [JobType.PDF_TO_PPTX]: {
+    conversionFormat: 'pptx',
+    conversionFromFormat: ConversionFormat.PDF,
+    conversionToFormat: ConversionFormat.PPTX,
+  },
+
+  /* DOCX */
+  [JobType.DOCX_TO_PDF]: {
+    conversionFormat: 'pdf',
+    conversionFromFormat: ConversionFormat.DOCX,
+    conversionToFormat: ConversionFormat.PDF,
+  },
 } as const
 
 export type JobTypeInfo = (typeof JobTypeInfo)[JobType]

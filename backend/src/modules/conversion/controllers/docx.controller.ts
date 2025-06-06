@@ -9,30 +9,18 @@ import { BaseImageConversionDto } from '../dto/BaseImageConversion.dto'
 import { Body, Controller, Post, Req } from '@nestjs/common'
 
 @Controller('conversion/convert')
-export class PdfController {
+export class DocxController {
   constructor(private readonly conversionService: ConversionService) {}
 
   @Auth()
-  @Post('pdf-to-docx')
+  @Post('docx-to-pdf')
   @FileInterceptor()
-  async convertPdfToDocx(
-    @File(100, /application\/pdf/)
+  async convertWebpToJpg(
+    @File(100, /application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document/)
     file: Express.Multer.File,
 
     @Req() req: Request,
   ) {
-    return this.conversionService.convert(file, JobType.PDF_TO_DOCX, {}, req.user)
-  }
-
-  @Auth()
-  @Post('pdf-to-pptx')
-  @FileInterceptor()
-  async convertPdfToPptx(
-    @File(100, /application\/pdf/)
-    file: Express.Multer.File,
-
-    @Req() req: Request,
-  ) {
-    return this.conversionService.convert(file, JobType.PDF_TO_PPTX, {}, req.user)
+    return this.conversionService.convert(file, JobType.DOCX_TO_PDF, {}, req.user)
   }
 }

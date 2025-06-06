@@ -14,6 +14,8 @@ import { Module } from '@nestjs/common'
 import { ConversionController } from './conversion.controller'
 import { ConversionService } from './conversion.service'
 import { PdfToDocxConversionService } from './services/pdf-to-docx-conversion.service'
+import { DocxToPdfConversionService } from './services/docx-to-pdf-conversion.service'
+import { DocxController } from './controllers/docx.controller'
 
 @Module({
   controllers: [
@@ -24,8 +26,15 @@ import { PdfToDocxConversionService } from './services/pdf-to-docx-conversion.se
     GifController,
     WebpController,
     PdfController,
+    DocxController
   ],
-  providers: [ConversionService, ConversionProcessor, ImageConversionService, PdfToDocxConversionService],
+  providers: [
+    ConversionService,
+    ConversionProcessor,
+    ImageConversionService,
+    PdfToDocxConversionService,
+    DocxToPdfConversionService,
+  ],
   imports: [
     StorageModule,
     BullModule.registerQueue({

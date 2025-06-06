@@ -36,4 +36,7 @@ export enum JobType {
   GIF_TO_TIFF = 'gif-to-tiff',
 
   PDF_TO_DOCX = 'pdf-to-docx',
+  PDF_TO_PPTX = 'pdf-to-pptx',
+
+  DOCX_TO_PDF = 'docx-to-pdf',
 }

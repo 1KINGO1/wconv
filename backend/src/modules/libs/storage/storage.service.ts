@@ -28,11 +28,11 @@ export class StorageService {
     this.bucketName = this.configService.getOrThrow<string>('S3_BUCKET_NAME')
   }
 
-  async upload(buffer: Buffer, key: string, mimetype?: string) {
+  async upload(body: Buffer | Readable, key: string, mimetype?: string) {
     const command: PutObjectCommandInput = {
       Bucket: this.bucketName,
       Key: String(key),
-      Body: buffer,
+      Body: body,
       ContentType: mimetype,
     }
 
