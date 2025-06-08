@@ -34,6 +34,28 @@ export const JobTypeCategories: Record<string, JobType[]> = {
     JobType.AVIF_TO_WEBP,
   ],
   DOCUMENT: [JobType.PDF_TO_DOCX],
+  AUDIO: [
+    JobType.MP3_TO_WAV,
+    JobType.MP3_TO_FLAC,
+    JobType.MP3_TO_OGG,
+    JobType.MP3_TO_AAC,
+    JobType.AAC_TO_MP3,
+    JobType.AAC_TO_WAV,
+    JobType.AAC_TO_FLAC,
+    JobType.AAC_TO_OGG,
+    JobType.WAV_TO_MP3,
+    JobType.WAV_TO_AAC,
+    JobType.WAV_TO_FLAC,
+    JobType.WAV_TO_OGG,
+    JobType.FLAC_TO_MP3,
+    JobType.FLAC_TO_WAV,
+    JobType.FLAC_TO_AAC,
+    JobType.FLAC_TO_OGG,
+    JobType.OGG_TO_MP3,
+    JobType.OGG_TO_WAV,
+    JobType.OGG_TO_AAC,
+    JobType.OGG_TO_FLAC,
+  ]
 }
 
 export type JobTypeCategory = keyof typeof JobTypeCategories

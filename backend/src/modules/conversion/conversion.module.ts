@@ -16,6 +16,12 @@ import { ConversionService } from './conversion.service'
 import { PdfToDocxConversionService } from './services/pdf-to-docx-conversion.service'
 import { DocxToPdfConversionService } from './services/docx-to-pdf-conversion.service'
 import { DocxController } from './controllers/docx.controller'
+import { AacController } from './controllers/aac.controller'
+import { FlacController } from './controllers/flac.controller'
+import { Mp3Controller } from './controllers/mp3.controller'
+import { WavController } from './controllers/wav.controller'
+import { OggController } from './controllers/ogg.controller'
+import { AudioConversionService } from './services/audio-conversion.service'
 
 @Module({
   controllers: [
@@ -26,7 +32,13 @@ import { DocxController } from './controllers/docx.controller'
     GifController,
     WebpController,
     PdfController,
-    DocxController
+    DocxController,
+    AacController,
+    AvifController,
+    FlacController,
+    Mp3Controller,
+    OggController,
+    WavController
   ],
   providers: [
     ConversionService,
@@ -34,6 +46,7 @@ import { DocxController } from './controllers/docx.controller'
     ImageConversionService,
     PdfToDocxConversionService,
     DocxToPdfConversionService,
+    AudioConversionService
   ],
   imports: [
     StorageModule,

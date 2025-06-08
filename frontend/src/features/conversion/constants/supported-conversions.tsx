@@ -10,7 +10,7 @@ export interface SupportedConversion {
   fileFromType: ConversionFormat
   fileToMimetype: MimeType
   fileToType: ConversionFormat
-  path: string
+  url: string
   Form: SupportedConversionForm
 }
 
@@ -23,7 +23,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.JPG,
     fileToMimetype: MimeType.PNG,
     fileToType: ConversionFormat.PNG,
-    path: 'jpg-to-png',
+    url: 'jpg-to-png',
     Form: BasicImageConversionForm,
   },
   {
@@ -31,7 +31,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.JPG,
     fileToMimetype: MimeType.WEBP,
     fileToType: ConversionFormat.WEBP,
-    path: 'jpg-to-webp',
+    url: 'jpg-to-webp',
     Form: BasicImageConversionForm,
   },
   {
@@ -39,7 +39,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.JPG,
     fileToMimetype: MimeType.AVIF,
     fileToType: ConversionFormat.AVIF,
-    path: 'jpg-to-avif',
+    url: 'jpg-to-avif',
     Form: BasicImageConversionForm,
   },
   {
@@ -47,7 +47,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.JPG,
     fileToMimetype: MimeType.GIF,
     fileToType: ConversionFormat.GIF,
-    path: 'jpg-to-gif',
+    url: 'jpg-to-gif',
     Form: BasicImageConversionForm,
   },
   // PNG
@@ -56,7 +56,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.PNG,
     fileToMimetype: MimeType.JPEG,
     fileToType: ConversionFormat.JPG,
-    path: 'png-to-jpg',
+    url: 'png-to-jpg',
     Form: BasicImageConversionForm,
   },
   {
@@ -64,7 +64,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.PNG,
     fileToMimetype: MimeType.WEBP,
     fileToType: ConversionFormat.WEBP,
-    path: 'png-to-webp',
+    url: 'png-to-webp',
     Form: BasicImageConversionForm,
   },
   {
@@ -72,7 +72,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.PNG,
     fileToMimetype: MimeType.AVIF,
     fileToType: ConversionFormat.AVIF,
-    path: 'png-to-avif',
+    url: 'png-to-avif',
     Form: BasicImageConversionForm,
   },
   {
@@ -80,7 +80,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.PNG,
     fileToMimetype: MimeType.GIF,
     fileToType: ConversionFormat.GIF,
-    path: 'png-to-gif',
+    url: 'png-to-gif',
     Form: BasicImageConversionForm,
   },
 
@@ -90,7 +90,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.WEBP,
     fileToMimetype: MimeType.JPEG,
     fileToType: ConversionFormat.JPG,
-    path: 'webp-to-jpg',
+    url: 'webp-to-jpg',
     Form: BasicImageConversionForm,
   },
   {
@@ -98,7 +98,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.WEBP,
     fileToMimetype: MimeType.PNG,
     fileToType: ConversionFormat.PNG,
-    path: 'webp-to-png',
+    url: 'webp-to-png',
     Form: BasicImageConversionForm,
   },
   {
@@ -106,7 +106,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.WEBP,
     fileToMimetype: MimeType.AVIF,
     fileToType: ConversionFormat.AVIF,
-    path: 'webp-to-avif',
+    url: 'webp-to-avif',
     Form: BasicImageConversionForm,
   },
   {
@@ -114,7 +114,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.WEBP,
     fileToMimetype: MimeType.GIF,
     fileToType: ConversionFormat.GIF,
-    path: 'webp-to-gif',
+    url: 'webp-to-gif',
     Form: BasicImageConversionForm,
   },
 
@@ -124,7 +124,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.GIF,
     fileToMimetype: MimeType.JPEG,
     fileToType: ConversionFormat.JPG,
-    path: 'gif-to-jpg',
+    url: 'gif-to-jpg',
     Form: BasicImageConversionForm,
   },
   {
@@ -132,7 +132,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.GIF,
     fileToMimetype: MimeType.PNG,
     fileToType: ConversionFormat.PNG,
-    path: 'gif-to-png',
+    url: 'gif-to-png',
     Form: BasicImageConversionForm,
   },
   {
@@ -140,7 +140,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.GIF,
     fileToMimetype: MimeType.WEBP,
     fileToType: ConversionFormat.WEBP,
-    path: 'gif-to-webp',
+    url: 'gif-to-webp',
     Form: BasicImageConversionForm,
   },
   {
@@ -148,7 +148,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.GIF,
     fileToMimetype: MimeType.AVIF,
     fileToType: ConversionFormat.AVIF,
-    path: 'gif-to-avif',
+    url: 'gif-to-avif',
     Form: BasicImageConversionForm,
   },
 
@@ -158,7 +158,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.AVIF,
     fileToMimetype: MimeType.JPEG,
     fileToType: ConversionFormat.JPG,
-    path: 'avif-to-jpg',
+    url: 'avif-to-jpg',
     Form: BasicImageConversionForm,
   },
   {
@@ -166,7 +166,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.AVIF,
     fileToMimetype: MimeType.PNG,
     fileToType: ConversionFormat.PNG,
-    path: 'avif-to-png',
+    url: 'avif-to-png',
     Form: BasicImageConversionForm,
   },
   {
@@ -174,7 +174,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.AVIF,
     fileToMimetype: MimeType.WEBP,
     fileToType: ConversionFormat.WEBP,
-    path: 'avif-to-webp',
+    url: 'avif-to-webp',
     Form: BasicImageConversionForm,
   },
   {
@@ -182,7 +182,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.AVIF,
     fileToMimetype: MimeType.TIFF,
     fileToType: ConversionFormat.TIFF,
-    path: 'avif-to-tiff',
+    url: 'avif-to-tiff',
     Form: BasicImageConversionForm,
   },
   {
@@ -190,7 +190,7 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.PDF,
     fileToMimetype: MimeType.MS_WORD,
     fileToType: ConversionFormat.DOCX,
-    path: 'pdf-to-docx',
+    url: 'pdf-to-docx',
     Form: EmptyForm,
   },
 
@@ -199,7 +199,176 @@ export const supportedConversions: SupportedConversion[] = [
     fileFromType: ConversionFormat.DOCX,
     fileToMimetype: MimeType.PDF,
     fileToType: ConversionFormat.PDF,
-    path: 'docx-to-pdf',
+    url: 'docx-to-pdf',
+    Form: EmptyForm,
+  },
+
+  {
+    fileFromMimetype: MimeType.MP3,
+    fileFromType: ConversionFormat.MP3,
+    fileToMimetype: MimeType.AAC,
+    fileToType: ConversionFormat.AAC,
+    url: 'mp3-to-aac',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.MP3,
+    fileFromType: ConversionFormat.MP3,
+    fileToMimetype: MimeType.WAV,
+    fileToType: ConversionFormat.WAV,
+    url: 'mp3-to-wav',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.MP3,
+    fileFromType: ConversionFormat.MP3,
+    fileToMimetype: MimeType.OGG_AUDIO,
+    fileToType: ConversionFormat.OGG,
+    url: 'mp3-to-ogg',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.MP3,
+    fileFromType: ConversionFormat.MP3,
+    fileToMimetype: MimeType.FLAC,
+    fileToType: ConversionFormat.FLAC,
+    url: 'mp3-to-flac',
+    Form: EmptyForm,
+  },
+
+  /* AAC conversions */
+  {
+    fileFromMimetype: MimeType.AAC,
+    fileFromType: ConversionFormat.AAC,
+    fileToMimetype: MimeType.MP3,
+    fileToType: ConversionFormat.MP3,
+    url: 'aac-to-mp3',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.AAC,
+    fileFromType: ConversionFormat.AAC,
+    fileToMimetype: MimeType.WAV,
+    fileToType: ConversionFormat.WAV,
+    url: 'aac-to-wav',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.AAC,
+    fileFromType: ConversionFormat.AAC,
+    fileToMimetype: MimeType.OGG_AUDIO,
+    fileToType: ConversionFormat.OGG,
+    url: 'aac-to-ogg',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.AAC,
+    fileFromType: ConversionFormat.AAC,
+    fileToMimetype: MimeType.FLAC,
+    fileToType: ConversionFormat.FLAC,
+    url: 'aac-to-flac',
+    Form: EmptyForm,
+  },
+
+  /* WAV conversions */
+  {
+    fileFromMimetype: MimeType.WAV,
+    fileFromType: ConversionFormat.WAV,
+    fileToMimetype: MimeType.MP3,
+    fileToType: ConversionFormat.MP3,
+    url: 'wav-to-mp3',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.WAV,
+    fileFromType: ConversionFormat.WAV,
+    fileToMimetype: MimeType.AAC,
+    fileToType: ConversionFormat.AAC,
+    url: 'wav-to-aac',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.WAV,
+    fileFromType: ConversionFormat.WAV,
+    fileToMimetype: MimeType.OGG_AUDIO,
+    fileToType: ConversionFormat.OGG,
+    url: 'wav-to-ogg',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.WAV,
+    fileFromType: ConversionFormat.WAV,
+    fileToMimetype: MimeType.FLAC,
+    fileToType: ConversionFormat.FLAC,
+    url: 'wav-to-flac',
+    Form: EmptyForm,
+  },
+
+  /* OGG conversions */
+  {
+    fileFromMimetype: MimeType.OGG_AUDIO,
+    fileFromType: ConversionFormat.OGG,
+    fileToMimetype: MimeType.MP3,
+    fileToType: ConversionFormat.MP3,
+    url: 'ogg-to-mp3',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.OGG_AUDIO,
+    fileFromType: ConversionFormat.OGG,
+    fileToMimetype: MimeType.AAC,
+    fileToType: ConversionFormat.AAC,
+    url: 'ogg-to-aac',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.OGG_AUDIO,
+    fileFromType: ConversionFormat.OGG,
+    fileToMimetype: MimeType.WAV,
+    fileToType: ConversionFormat.WAV,
+    url: 'ogg-to-wav',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.OGG_AUDIO,
+    fileFromType: ConversionFormat.OGG,
+    fileToMimetype: MimeType.FLAC,
+    fileToType: ConversionFormat.FLAC,
+    url: 'ogg-to-flac',
+    Form: EmptyForm,
+  },
+
+  /* FLAC conversions */
+  {
+    fileFromMimetype: MimeType.FLAC,
+    fileFromType: ConversionFormat.FLAC,
+    fileToMimetype: MimeType.MP3,
+    fileToType: ConversionFormat.MP3,
+    url: 'flac-to-mp3',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.FLAC,
+    fileFromType: ConversionFormat.FLAC,
+    fileToMimetype: MimeType.AAC,
+    fileToType: ConversionFormat.AAC,
+    url: 'flac-to-aac',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.FLAC,
+    fileFromType: ConversionFormat.FLAC,
+    fileToMimetype: MimeType.WAV,
+    fileToType: ConversionFormat.WAV,
+    url: 'flac-to-wav',
+    Form: EmptyForm,
+  },
+  {
+    fileFromMimetype: MimeType.FLAC,
+    fileFromType: ConversionFormat.FLAC,
+    fileToMimetype: MimeType.OGG_AUDIO,
+    fileToType: ConversionFormat.OGG,
+    url: 'flac-to-ogg',
     Form: EmptyForm,
   },
 ]

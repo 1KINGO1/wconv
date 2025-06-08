@@ -39,4 +39,30 @@ export enum JobType {
   PDF_TO_PPTX = 'pdf-to-pptx',
 
   DOCX_TO_PDF = 'docx-to-pdf',
+
+
+  MP3_TO_AAC = 'mp3-to-aac',
+  MP3_TO_WAV = 'mp3-to-wav',
+  MP3_TO_OGG = 'mp3-to-ogg',
+  MP3_TO_FLAC = 'mp3-to-flac',
+
+  AAC_TO_MP3 = 'aac-to-mp3',
+  AAC_TO_WAV = 'aac-to-wav',
+  AAC_TO_OGG = 'aac-to-ogg',
+  AAC_TO_FLAC = 'aac-to-flac',
+
+  WAV_TO_MP3 = 'wav-to-mp3',
+  WAV_TO_AAC = 'wav-to-aac',
+  WAV_TO_OGG = 'wav-to-ogg',
+  WAV_TO_FLAC = 'wav-to-flac',
+
+  OGG_TO_MP3 = 'ogg-to-mp3',
+  OGG_TO_AAC = 'ogg-to-aac',
+  OGG_TO_WAV = 'ogg-to-wav',
+  OGG_TO_FLAC = 'ogg-to-flac',
+
+  FLAC_TO_MP3 = 'flac-to-mp3',
+  FLAC_TO_AAC = 'flac-to-aac',
+  FLAC_TO_WAV = 'flac-to-wav',
+  FLAC_TO_OGG = 'flac-to-ogg',
 }

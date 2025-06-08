@@ -189,6 +189,116 @@ export const JobTypeInfo: Record<JobType, JobTypeInfoItem> = {
     conversionFromFormat: ConversionFormat.DOCX,
     conversionToFormat: ConversionFormat.PDF,
   },
+
+  /* MP3 */
+  [JobType.MP3_TO_AAC]: {
+    conversionFormat: 'aac',
+    conversionFromFormat: ConversionFormat.MP3,
+    conversionToFormat: ConversionFormat.AAC,
+  },
+  [JobType.MP3_TO_WAV]: {
+    conversionFormat: 'wav',
+    conversionFromFormat: ConversionFormat.MP3,
+    conversionToFormat: ConversionFormat.WAV,
+  },
+  [JobType.MP3_TO_OGG]: {
+    conversionFormat: 'ogg',
+    conversionFromFormat: ConversionFormat.MP3,
+    conversionToFormat: ConversionFormat.OGG,
+  },
+  [JobType.MP3_TO_FLAC]: {
+    conversionFormat: 'flac',
+    conversionFromFormat: ConversionFormat.MP3,
+    conversionToFormat: ConversionFormat.FLAC,
+  },
+
+  /* AAC */
+  [JobType.AAC_TO_MP3]: {
+    conversionFormat: 'mp3',
+    conversionFromFormat: ConversionFormat.AAC,
+    conversionToFormat: ConversionFormat.MP3,
+  },
+  [JobType.AAC_TO_WAV]: {
+    conversionFormat: 'wav',
+    conversionFromFormat: ConversionFormat.AAC,
+    conversionToFormat: ConversionFormat.WAV,
+  },
+  [JobType.AAC_TO_OGG]: {
+    conversionFormat: 'ogg',
+    conversionFromFormat: ConversionFormat.AAC,
+    conversionToFormat: ConversionFormat.OGG,
+  },
+  [JobType.AAC_TO_FLAC]: {
+    conversionFormat: 'flac',
+    conversionFromFormat: ConversionFormat.AAC,
+    conversionToFormat: ConversionFormat.FLAC,
+  },
+
+  /* WAV */
+  [JobType.WAV_TO_MP3]: {
+    conversionFormat: 'mp3',
+    conversionFromFormat: ConversionFormat.WAV,
+    conversionToFormat: ConversionFormat.MP3,
+  },
+  [JobType.WAV_TO_AAC]: {
+    conversionFormat: 'aac',
+    conversionFromFormat: ConversionFormat.WAV,
+    conversionToFormat: ConversionFormat.AAC,
+  },
+  [JobType.WAV_TO_OGG]: {
+    conversionFormat: 'ogg',
+    conversionFromFormat: ConversionFormat.WAV,
+    conversionToFormat: ConversionFormat.OGG,
+  },
+  [JobType.WAV_TO_FLAC]: {
+    conversionFormat: 'flac',
+    conversionFromFormat: ConversionFormat.WAV,
+    conversionToFormat: ConversionFormat.FLAC,
+  },
+
+  /* OGG */
+  [JobType.OGG_TO_MP3]: {
+    conversionFormat: 'mp3',
+    conversionFromFormat: ConversionFormat.OGG,
+    conversionToFormat: ConversionFormat.MP3,
+  },
+  [JobType.OGG_TO_AAC]: {
+    conversionFormat: 'aac',
+    conversionFromFormat: ConversionFormat.OGG,
+    conversionToFormat: ConversionFormat.AAC,
+  },
+  [JobType.OGG_TO_WAV]: {
+    conversionFormat: 'wav',
+    conversionFromFormat: ConversionFormat.OGG,
+    conversionToFormat: ConversionFormat.WAV,
+  },
+  [JobType.OGG_TO_FLAC]: {
+    conversionFormat: 'flac',
+    conversionFromFormat: ConversionFormat.OGG,
+    conversionToFormat: ConversionFormat.FLAC,
+  },
+
+  /* FLAC */
+  [JobType.FLAC_TO_MP3]: {
+    conversionFormat: 'mp3',
+    conversionFromFormat: ConversionFormat.FLAC,
+    conversionToFormat: ConversionFormat.MP3,
+  },
+  [JobType.FLAC_TO_AAC]: {
+    conversionFormat: 'aac',
+    conversionFromFormat: ConversionFormat.FLAC,
+    conversionToFormat: ConversionFormat.AAC,
+  },
+  [JobType.FLAC_TO_WAV]: {
+    conversionFormat: 'wav',
+    conversionFromFormat: ConversionFormat.FLAC,
+    conversionToFormat: ConversionFormat.WAV,
+  },
+  [JobType.FLAC_TO_OGG]: {
+    conversionFormat: 'ogg',
+    conversionFromFormat: ConversionFormat.FLAC,
+    conversionToFormat: ConversionFormat.OGG,
+  },
 } as const
 
 export type JobTypeInfo = (typeof JobTypeInfo)[JobType]

@@ -104,5 +104,11 @@ enum ConversionFormat {
   TIFF
   GIF
 
+  MP3
+  AAC
+  WAV
+  OGG
+  FLAC
+
   @@map("conversion_formats")
 }

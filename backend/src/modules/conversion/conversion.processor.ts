@@ -19,6 +19,7 @@ import * as fsCommon from 'fs'
 import { pipeline } from 'stream/promises'
 import { JobTypeCategories } from './constants/job-type-categories'
 import { BaseImageConversionDto } from './dto/BaseImageConversion.dto'
+import { AudioConversionService } from './services/audio-conversion.service'
 
 const fs = fsCommon.promises;
 
@@ -33,6 +34,7 @@ export class ConversionProcessor extends WorkerHost {
     private readonly redisService: RedisService,
 
     private readonly imageConversionService: ImageConversionService,
+    private readonly audioConversionService: AudioConversionService,
     private readonly pdfToDocxConversionService: PdfToDocxConversionService,
     private readonly docxToPdfConversionService: DocxToPdfConversionService,
   ) {
@@ -43,12 +45,15 @@ export class ConversionProcessor extends WorkerHost {
     const tempDir = await this.createTempDir();
     try {
       const {
+        key,
         jobName,
         jobConversionFormat,
         conversionOptions,
         jobConversionTypeInfo,
         inputPath, outputPath
-      } = await this.extractJobInfo(job, tempDir)
+      } = await this.extractJobInfo(job, tempDir);
+
+      await this.writeInputFileToTemp(key, inputPath);
 
       await this.convertByJobName(
         jobName,
@@ -56,7 +61,7 @@ export class ConversionProcessor extends WorkerHost {
         outputPath,
         jobConversionFormat,
         conversionOptions
-      )
+      );
 
       const convertedFileName =
         `converted-` +
@@ -86,6 +91,7 @@ export class ConversionProcessor extends WorkerHost {
       }
       await this.redisService.publish(RedisGatewayEvents.WEBSOCKET_MESSAGE, JSON.stringify(body))
     } catch (e) {
+      console.log(e);
       const updatedConversion = await this.prismaService.conversion.update({
         where: {
           id: job.data.conversionId,
@@ -124,6 +130,12 @@ export class ConversionProcessor extends WorkerHost {
           jobConversionFormat,
           options as BaseImageConversionDto,
         )
+      case JobTypeCategories.AUDIO.includes(jobName):
+        return this.audioConversionService.processAudio(
+          inputPath,
+          outputPath,
+          jobConversionFormat,
+        )
       case jobName === JobType.PDF_TO_DOCX:
         return await this.pdfToDocxConversionService.processPdfToDocx(inputPath, outputPath)
       case jobName === JobType.DOCX_TO_PDF:
@@ -132,7 +144,6 @@ export class ConversionProcessor extends WorkerHost {
         throw new Error('Invalid job name')
     }
   }
-
   private async createTempDir() {
     const tempDir = path.join(tmpdir(), `convert-${randomUUID()}`);
     await fs.mkdir(tempDir, { recursive: true });
@@ -142,27 +153,18 @@ export class ConversionProcessor extends WorkerHost {
   private async removeTempDir(tempDir: string) {
     await fs.rm(tempDir, { recursive: true, force: true }).catch(() => null);
   }
-
   private async extractJobInfo(job: Job, tempDir: string) {
     const key = this.conversionService.generateS3Key(job.data.fileName)
-    const output = await this.storageService.read(key)
-    const readable = this.storageService.readResponseIntoReadable(output)
 
     const jobName = job.name as JobType
     const jobConversionTypeInfo = JobTypeInfo[jobName]
     const jobConversionFormat = jobConversionTypeInfo.conversionFormat
     const conversionOptions = JSON.parse(job.data.options)
 
-    const inputPath = path.join(tempDir, job.data.fileName);
-    const outputPath = path.join(tempDir, randomUUID() + `.${jobConversionFormat}`);
-
-    const writeSteam = fsCommon.createWriteStream(inputPath);
-    await pipeline(readable, writeSteam);
+    const { inputPath, outputPath } = this.createTempFiles(tempDir, job.data.fileName, jobConversionFormat);
 
     return {
       key,
-      output,
-      readable,
       jobName,
       jobConversionFormat,
       jobConversionTypeInfo,
@@ -170,5 +172,18 @@ export class ConversionProcessor extends WorkerHost {
       inputPath,
       outputPath,
     }
+  }
+  private createTempFiles(tempDir: string, fileName: string, jobConversionFormat: string) {
+    const inputPath = path.join(tempDir, fileName);
+    const outputPath = path.join(tempDir, randomUUID() + `.${jobConversionFormat}`);
+
+    return { inputPath, outputPath }
+  }
+  private async writeInputFileToTemp(s3Key: string, inputPath: string){
+    const output = await this.storageService.read(s3Key)
+    const readable = this.storageService.readResponseIntoReadable(output)
+
+    const writeSteam = fsCommon.createWriteStream(inputPath);
+    await pipeline(readable, writeSteam);
   }
 }

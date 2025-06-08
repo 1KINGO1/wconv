@@ -1,60 +1,74 @@
 import { MimeType } from '@/shared/constants/mimetype'
 
-export const mimeDescriptions: Record<MimeType, string> = {
-  [MimeType.JPEG]: '.jpg and .jpeg image files',
-  [MimeType.PNG]: '.png image files',
-  [MimeType.GIF]: '.gif image files',
-  [MimeType.WEBP]: '.webp image files',
-  [MimeType.SVG]: '.svg vector images',
-  [MimeType.BMP]: '.bmp image files',
-  [MimeType.TIFF]: '.tif and .tiff image files',
-  [MimeType.ICON]: '.ico icon files',
-  [MimeType.HEIC]: '.heic image files (iPhone photos)',
+export const descriptionsByKey: Record<keyof typeof MimeType, string> = {
+  JPEG: '.jpg and .jpeg image files',
+  PNG: '.png image files',
+  GIF: '.gif image files',
+  WEBP: '.webp image files',
+  SVG: '.svg vector images',
+  BMP: '.bmp image files',
+  TIFF: '.tif and .tiff image files',
+  ICON: '.ico icon files',
+  HEIC: '.heic image files (iPhone photos)',
+  AVIF: '.avif image files',
 
-  [MimeType.MP3]: '.mp3 audio files',
-  [MimeType.OGG_AUDIO]: '.ogg audio files',
-  [MimeType.WAV]: '.wav audio files',
-  [MimeType.WEBM_AUDIO]: '.webm audio files',
-  [MimeType.AAC]: '.aac audio files',
-  [MimeType.FLAC]: '.flac audio files',
-  [MimeType.WMA]: '.wma audio files',
+  MP3: '.mp3 audio files',
+  OGG_AUDIO: '.ogg audio files',
+  WAV: '.wav audio files',
+  WEBM_AUDIO: '.webm audio files',
+  AAC: '.aac audio files',
+  FLAC: '.flac audio files',
+  WMA: '.wma audio files',
 
-  [MimeType.MP4]: '.mp4 video files',
-  [MimeType.WEBM_VIDEO]: '.webm video files',
-  [MimeType.OGG_VIDEO]: '.ogv video files',
-  [MimeType.AVI]: '.avi video files',
-  [MimeType.MPEG]: '.mpeg and .mpg video files',
-  [MimeType.MOV]: '.mov video files',
-  [MimeType.MKV]: '.mkv video files',
+  MP4: '.mp4 video files',
+  WEBM_VIDEO: '.webm video files',
+  OGG_VIDEO: '.ogv video files',
+  AVI: '.avi video files',
+  MPEG: '.mpeg and .mpg video files',
+  MOV: '.mov video files',
+  MKV: '.mkv video files',
 
-  [MimeType.PLAIN]: '.txt plain text files',
-  [MimeType.HTML]: '.html and .htm HTML files',
-  [MimeType.CSS]: '.css stylesheet files',
-  [MimeType.CSV]: '.csv comma-separated files',
-  [MimeType.MARKDOWN]: '.md Markdown files',
-  [MimeType.XML]: '.xml text files',
+  PLAIN: '.txt plain text files',
+  HTML: '.html and .htm HTML files',
+  CSS: '.css stylesheet files',
+  CSV: '.csv comma-separated files',
+  MARKDOWN: '.md Markdown files',
+  XML: '.xml text files',
 
-  [MimeType.JSON]: '.json files',
-  [MimeType.JAVASCRIPT]: '.js JavaScript files',
-  [MimeType.PDF]: '.pdf files',
-  [MimeType.ZIP]: '.zip compressed files',
-  [MimeType.SEVEN_ZIP]: '.7z compressed files',
-  [MimeType.RAR]: '.rar compressed files',
-  [MimeType.TAR]: '.tar archive files',
-  [MimeType.GZIP]: '.gz compressed files',
-  [MimeType.MS_WORD]: '.doc Microsoft Word files',
-  [MimeType.MS_WORD_OPENXML]: '.docx Word files',
-  [MimeType.MS_EXCEL]: '.xls Excel files',
-  [MimeType.MS_EXCEL_OPENXML]: '.xlsx Excel files',
-  [MimeType.MS_PPT]: '.ppt PowerPoint files',
-  [MimeType.MS_PPT_OPENXML]: '.pptx PowerPoint files',
-  [MimeType.FORM_URLENCODED]: 'Form URL-encoded data',
-  [MimeType.OCTET_STREAM]: 'Binary data (generic)',
+  JSON: '.json files',
+  JAVASCRIPT: '.js JavaScript files',
+  PDF: '.pdf files',
+  ZIP: '.zip compressed files',
+  SEVEN_ZIP: '.7z compressed files',
+  RAR: '.rar compressed files',
+  TAR: '.tar archive files',
+  GZIP: '.gz compressed files',
+  MS_WORD: '.doc Microsoft Word files',
+  MS_WORD_OPENXML: '.docx Word files',
+  MS_EXCEL: '.xls Excel files',
+  MS_EXCEL_OPENXML: '.xlsx Excel files',
+  MS_PPT: '.ppt PowerPoint files',
+  MS_PPT_OPENXML: '.pptx PowerPoint files',
+  FORM_URLENCODED: 'Form URL-encoded data',
+  OCTET_STREAM: 'Binary data (generic)',
 
-  [MimeType.TTF]: '.ttf font files',
-  [MimeType.WOFF]: '.woff font files',
-  [MimeType.WOFF2]: '.woff2 font files',
-  [MimeType.EOT]: '.eot font files',
+  TTF: '.ttf font files',
+  WOFF: '.woff font files',
+  WOFF2: '.woff2 font files',
+  EOT: '.eot font files',
 
-  [MimeType.MULTIPART_FORM_DATA]: 'Form data with file upload',
+  MULTIPART_FORM_DATA: 'Form data with file upload',
+};
+
+// mimetype -> description
+export const mimeDescriptions = new Map<string, string>();
+
+for (const key in MimeType) {
+  const mimeArray = MimeType[key as keyof typeof MimeType];
+  const description = descriptionsByKey[key as keyof typeof descriptionsByKey];
+  if (description && mimeArray) {
+    for (const mime of mimeArray) {
+      mimeDescriptions.set(mime, description);
+    }
+  }
 }

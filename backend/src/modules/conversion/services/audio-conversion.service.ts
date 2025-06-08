@@ -7,18 +7,22 @@ export class AudioConversionService {
     inputPath: string,
     outputPath: string,
     conversionType: string,
-    options: T,
   ) {
     return new Promise((resolve, reject) => {
-      ffmpeg(inputPath)
-        .toFormat(conversionType)
+      const fm = ffmpeg(inputPath)
+        .output(outputPath)
         .on('end', () => {
           resolve(outputPath);
         })
         .on('error', (err) => {
           reject(err);
-        })
-        .saveToFile(outputPath);
+        });
+
+      if (conversionType === 'aac') {
+        fm.audioCodec(conversionType);
+      }
+
+      fm.run();
     })
   }
 }

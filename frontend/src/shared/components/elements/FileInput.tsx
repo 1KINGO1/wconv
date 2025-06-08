@@ -12,7 +12,7 @@ import { convertBytesToMb } from '@/shared/utils/convert-bytes-to-mb'
 import { cn } from '@/shared/utils/utils'
 
 interface FileInputProps {
-  allowedMIMEType?: string
+  allowedMIMEType?: string | string[]
   invalidMimeTypeMessage?: string
   invalidSizeMessage?: string
   file: File | null
@@ -31,7 +31,11 @@ export function FileInput({
   const validateFileMIMEType = (file: File) => {
     if (
       props.allowedMIMEType !== undefined &&
-      file.type !== props.allowedMIMEType
+      (
+        Array.isArray(props.allowedMIMEType) ?
+        !props.allowedMIMEType.includes(file.type) :
+        props.allowedMIMEType !== file.type
+      )
     ) {
       setError(props.invalidMimeTypeMessage ?? null)
     }
