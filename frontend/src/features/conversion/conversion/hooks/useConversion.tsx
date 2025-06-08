@@ -33,7 +33,7 @@ export const useConversion = () => {
     }
 
     setAvailableConversions(availableConversions)
-    setSelectedConversion(availableConversions[0]);
+    setSelectedConversion(availableConversions[0] ?? null);
   }, [file])
   useEffect(() => {
     if (error === null) return

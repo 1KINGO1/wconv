@@ -72,7 +72,7 @@ export function FileInput({
   return (
     <div
       className={cn(
-        'flex flex-col justify-center items-center border-2 border-dashed border-gray-400 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-100 min-w-md h-60',
+        'flex flex-col justify-center items-center border-2 border-dashed border-gray-400 rounded-lg p-2 lg:p-6 text-center cursor-pointer hover:bg-gray-100 w-full lg:min-w-md h-60',
         {
           'border-red-500': error !== null,
           'border-green-700': file !== null && error === null,

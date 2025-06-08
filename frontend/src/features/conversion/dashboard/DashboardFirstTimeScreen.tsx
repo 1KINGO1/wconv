@@ -16,7 +16,7 @@ export function DashboardFirstTimeScreen() {
         Get Started
       </RedirectButton>
 
-      <div className='flex justify-between mt-12 gap-8'>
+      <div className='flex justify-between mt-12 gap-8 flex-col lg:flex-row'>
         <FileFormatCard
           imageUrl='/pdf.png'
           header='PDF Conversion'

@@ -7,6 +7,10 @@ class CurrentUserService {
     const { data } = await apiWithAuth.get(Urls.currentUser)
     return data
   }
+
+  async logout(): Promise<void> {
+    await apiWithAuth.post(Urls.logout)
+  }
 }
 
 export const currentUserService = new CurrentUserService()

@@ -21,8 +21,8 @@ export function Conversion() {
   } = useConversion()
 
   return (
-    <div className="flex flex-col gap-8 justify-center items-center">
-      <Card className="p-8">
+    <div className="flex flex-col gap-2 lg:gap-8 justify-center items-center">
+      <Card className="p-3 lg:p-8">
         <FileInput
           file={file}
           setFile={setFile}
@@ -41,7 +41,7 @@ export function Conversion() {
           />
         </div>
       </Card>
-      <div className="flex flex-col gap-2 w-full justify-center">
+      <div className="flex mt-5 lg:mt-0 flex-col gap-2 w-full justify-center">
         <ConversionRecentConversions />
       </div>
     </div>
