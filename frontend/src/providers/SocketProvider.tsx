@@ -11,7 +11,7 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:3000', {
+    socketRef.current = io( process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000', {
       autoConnect: true,
       extraHeaders: {
         Authorization: `Bearer ${accessTokenService.getAccessToken()}`,

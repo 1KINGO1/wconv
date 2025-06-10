@@ -96,6 +96,7 @@ enum ConversionFormat {
   DOCX
   XLSX
   PPTX
+  HTML
 
   PNG
   JPG

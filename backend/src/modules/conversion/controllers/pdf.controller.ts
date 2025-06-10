@@ -23,16 +23,4 @@ export class PdfController {
   ) {
     return this.conversionService.convert(file, JobType.PDF_TO_DOCX, {}, req.user)
   }
-
-  @Auth()
-  @Post('pdf-to-pptx')
-  @FileInterceptor()
-  async convertPdfToPptx(
-    @File(100, /application\/pdf/)
-    file: Express.Multer.File,
-
-    @Req() req: Request,
-  ) {
-    return this.conversionService.convert(file, JobType.PDF_TO_PPTX, {}, req.user)
-  }
 }

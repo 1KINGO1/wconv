@@ -1,12 +1,20 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { promises as fs } from 'fs'
 import * as path from 'path'
-import * as os from 'os'
 import { spawn } from 'child_process'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class PdfToDocxConversionService implements OnModuleInit {
+  private PYTHON_CMD = 'python';
+
+  constructor(configService: ConfigService) {
+    this.PYTHON_CMD = configService.getOrThrow<string>('PYTHON_CMD');
+  }
+
   async onModuleInit() {
+
+
     const isAvailable = await this.checkPdf2DocxAvailability();
     if (!isAvailable) {
       throw new Error('pdf2docx library is not available. Please install it using: pip install pdf2docx')

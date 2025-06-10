@@ -21,6 +21,7 @@ import { loginSchema, TypeLoginSchema } from '@/shared/schemas/login.schema'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
+import { API_BASE_URL } from '@/shared/constants/urls'
 
 export function LoginForm() {
   const form = useForm({
@@ -104,7 +105,7 @@ export function LoginForm() {
         <Separator />
         <RedirectButton
           variant='outline'
-          url='http://localhost:3000/api/auth/google'
+          url={`${API_BASE_URL}/auth/google`}
         >
           Log In with Google
         </RedirectButton>

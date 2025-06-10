@@ -20,6 +20,7 @@ import { pipeline } from 'stream/promises'
 import { JobTypeCategories } from './constants/job-type-categories'
 import { BaseImageConversionDto } from './dto/BaseImageConversion.dto'
 import { AudioConversionService } from './services/audio-conversion.service'
+import { DocxToHtmlConversionService } from './services/docx-to-html-conversion.service'
 
 const fs = fsCommon.promises;
 
@@ -37,6 +38,7 @@ export class ConversionProcessor extends WorkerHost {
     private readonly audioConversionService: AudioConversionService,
     private readonly pdfToDocxConversionService: PdfToDocxConversionService,
     private readonly docxToPdfConversionService: DocxToPdfConversionService,
+    private readonly docxToHtmlConversionService: DocxToHtmlConversionService,
   ) {
     super()
   }
@@ -136,6 +138,8 @@ export class ConversionProcessor extends WorkerHost {
           outputPath,
           jobConversionFormat,
         )
+      case jobName === JobType.DOCX_TO_HTML:
+        return await this.docxToHtmlConversionService.processDocxToHtml(inputPath, outputPath)
       case jobName === JobType.PDF_TO_DOCX:
         return await this.pdfToDocxConversionService.processPdfToDocx(inputPath, outputPath)
       case jobName === JobType.DOCX_TO_PDF:

@@ -371,4 +371,12 @@ export const supportedConversions: SupportedConversion[] = [
     url: 'flac-to-ogg',
     Form: EmptyForm,
   },
+  {
+    fileFromMimetype: MimeType.MS_WORD_OPENXML,
+    fileFromType: ConversionFormat.DOCX,
+    fileToMimetype: MimeType.HTML,
+    fileToType: ConversionFormat.HTML,
+    url: 'docx-to-html',
+    Form: EmptyForm,
+  },
 ]

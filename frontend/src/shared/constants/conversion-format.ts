@@ -12,6 +12,7 @@ export const ConversionFormat = {
   OGG: 'OGG',
   FLAC: 'FLAC',
   AAC: 'AAC',
+  HTML: 'HTML'
 } as const
 
 export type ConversionFormat =

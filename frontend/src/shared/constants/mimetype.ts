@@ -1,3 +1,5 @@
+// Todo: Refactor
+
 export const MimeType: Record<string, string[]> = {
   JPEG : ['image/jpeg'],
   PNG : ['image/png'],
@@ -42,7 +44,7 @@ export const MimeType: Record<string, string[]> = {
   TAR : ['application/x-tar'],
   GZIP : ['application/gzip'],
   MS_WORD : ['application/msword'],
-  MS_WORD_OPENXML : ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+  MS_WORD_OPENXML : ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'],
   MS_EXCEL : ['application/vnd.ms-excel'],
   MS_EXCEL_OPENXML : ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
   MS_PPT : ['application/vnd.ms-powerpoint'],

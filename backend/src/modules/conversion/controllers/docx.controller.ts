@@ -8,6 +8,8 @@ import { FileInterceptor } from '../decorators/file.interceptor'
 import { BaseImageConversionDto } from '../dto/BaseImageConversion.dto'
 import { Body, Controller, Post, Req } from '@nestjs/common'
 
+const fileRegex = /(application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document)|(application\/msword)/
+
 @Controller('conversion/convert')
 export class DocxController {
   constructor(private readonly conversionService: ConversionService) {}
@@ -15,12 +17,24 @@ export class DocxController {
   @Auth()
   @Post('docx-to-pdf')
   @FileInterceptor()
-  async convertWebpToJpg(
-    @File(100, /application\/vnd\.openxmlformats-officedocument\.wordprocessingml\.document/)
+  async convertDocxToPdf(
+    @File(100, fileRegex)
     file: Express.Multer.File,
 
     @Req() req: Request,
   ) {
     return this.conversionService.convert(file, JobType.DOCX_TO_PDF, {}, req.user)
+  }
+
+  @Auth()
+  @Post('docx-to-html')
+  @FileInterceptor()
+  async convertDocxToHtml(
+    @File(100, fileRegex)
+    file: Express.Multer.File,
+
+    @Req() req: Request,
+  ) {
+    return this.conversionService.convert(file, JobType.DOCX_TO_HTML, {}, req.user)
   }
 }

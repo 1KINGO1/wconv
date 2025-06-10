@@ -22,6 +22,7 @@ import { Mp3Controller } from './controllers/mp3.controller'
 import { WavController } from './controllers/wav.controller'
 import { OggController } from './controllers/ogg.controller'
 import { AudioConversionService } from './services/audio-conversion.service'
+import { DocxToHtmlConversionService } from './services/docx-to-html-conversion.service'
 
 @Module({
   controllers: [
@@ -46,7 +47,8 @@ import { AudioConversionService } from './services/audio-conversion.service'
     ImageConversionService,
     PdfToDocxConversionService,
     DocxToPdfConversionService,
-    AudioConversionService
+    AudioConversionService,
+    DocxToHtmlConversionService
   ],
   imports: [
     StorageModule,

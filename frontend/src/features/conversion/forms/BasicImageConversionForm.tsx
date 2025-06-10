@@ -46,11 +46,20 @@ export const BasicImageConversionForm: SupportedConversionForm = ({
     setProgress(0)
   }
 
+  let buttonText = 'Convert';
+
+  if (progress) {
+    buttonText = `${progress}%`
+  }
+  if (progress === 100) {
+    buttonText = `${progress}% Processing`
+  }
+
   return (
     <BaseConversionForm
       form={form}
       mutateFunction={submitHandler}
-      buttonText={progress ? `${progress}%` : 'Convert'}
+      buttonText={buttonText}
     >
       <FormField
         control={form.control}
