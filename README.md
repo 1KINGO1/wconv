@@ -49,6 +49,7 @@ WConv is built with modern technologies to ensure scalability and performance:
 - **Deployment**: Docker & Docker Compose - Containerized deployment
 - **File Storage**: AWS S3 - Scalable object storage for files
 - **Authentication**: Google OAuth - Secure user authentication
+- **Conversion**: FFmpeg, LibreOffice, sharp, pdf2docx
 
 ## 📋 Prerequisites
 
