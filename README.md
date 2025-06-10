@@ -47,6 +47,8 @@ WConv is built with modern technologies to ensure scalability and performance:
 - **Cache & Pub/Sub**: Redis - High-performance data structure store
 - **Database**: PostgreSQL - Robust relational database
 - **Deployment**: Docker & Docker Compose - Containerized deployment
+- **File Storage**: AWS S3 - Scalable object storage for files
+- **Authentication**: Google OAuth - Secure user authentication
 
 ## 📋 Prerequisites
 
