@@ -21,16 +21,35 @@ export function DashboardFirstTimeScreen() {
           imageUrl='/pdf.png'
           header='PDF Conversion'
           description='Convert documents to and from PDF format easily.'
+          supportedFormats={[
+            'PDF → DOCX',
+            'DOCX → HTML, PDF',
+          ]}
         />
         <FileFormatCard
           imageUrl='/image.png'
           header='Image Conversion'
           description='Change image formats quickly and efficiently.'
+          supportedFormats={[
+            'PNG → JPG, WEBP, AVIF, GIF',
+            'JPG → PNG, WEBP, AVIF, GIF',
+            'WEBP → PNG, JPG, AVIF, GIF',
+            'AVIF → PNG, JPG, WEBP, GIF',
+            'TIFF → PNG, JPG, WEBP, GIF',
+            'GIF → PNG, JPG, WEBP, TIFF'
+          ]}
         />
         <FileFormatCard
           imageUrl='/audio.png'
           header='Audio Conversion'
           description='Convert audio files to various formats effortlessly.'
+          supportedFormats={[
+            'MP3 → AAC, WAV, OGG, FLAC',
+            'AAC → MP3, WAV, OGG, FLAC',
+            'WAV → MP3, AAC, OGG, FLAC',
+            'OGG → MP3, AAC, WAV, FLAC',
+            'FLAC → MP3, AAC, WAV, OGG'
+          ]}
         />
       </div>
     </div>

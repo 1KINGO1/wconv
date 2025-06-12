@@ -3,14 +3,12 @@
 import { useEffect } from 'react'
 
 import { ConversionItem } from '@/features/conversion/ConversionItem'
-import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
 import { getFileDownloadUrl } from '@/shared/utils/get-file-download-url'
 
 import { useConversions } from './hooks/useConversions'
 
 export function MyConversions() {
   const { data, isSuccess, refetch } = useConversions()
-  useConversionStateChange()
 
   useEffect(() => {
     refetch()

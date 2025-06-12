@@ -6,6 +6,7 @@ interface FileFormatCardProps {
   imageUrl: string
   header: string
   description: string
+  supportedFormats: string[]
 }
 
 export function FileFormatCard(props: FileFormatCardProps) {
@@ -23,6 +24,13 @@ export function FileFormatCard(props: FileFormatCardProps) {
       </div>
       <h2 className='text-xl mt-4'>{props.header}</h2>
       <p className='mt-2'>{props.description}</p>
+      <ul className='mt-4 mx-auto list-inside text-center list-none flex flex-col gap-2'>
+        {props.supportedFormats.map((format, index) =>
+          <li key={index} className='text-sm'>
+            {format}
+          </li>
+        )}
+      </ul>
     </Card>
   )
 }

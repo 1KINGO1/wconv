@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { SupportedConversion, supportedConversions } from '@/features/conversion/constants/supported-conversions'
-import { useConversionStateChange } from '@/features/conversion/hooks/useConversionStateChange'
 import { mimeDescriptions } from '@/shared/constants/mimetypes-descriptions'
 
 export const useConversion = () => {
@@ -11,8 +10,6 @@ export const useConversion = () => {
   >([])
   const [selectedConversion, setSelectedConversion] =
     useState<SupportedConversion | null>(null)
-
-  useConversionStateChange()
 
   useEffect(() => {
     if (file === null) {

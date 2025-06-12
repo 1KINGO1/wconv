@@ -8,7 +8,9 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <LayoutContainer>
       <SocketProvider>
-        <WithAuthLayout>{children}</WithAuthLayout>
+        <WithAuthLayout>
+          {children}
+        </WithAuthLayout>
       </SocketProvider>
     </LayoutContainer>
   )
