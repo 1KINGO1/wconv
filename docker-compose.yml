@@ -41,7 +41,7 @@ services:
     networks:
       app-network:
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
   redis:
     image: redis:7.2-alpine
     container_name: redis
@@ -62,7 +62,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
-      - nginx_logs:/var/log/nginx
+      - nginx-logs:/var/log/nginx
     depends_on:
       - frontend
       - backend
@@ -70,8 +70,8 @@ services:
       - app-network
 
 volumes:
-  postgres_data:
+  postgres-data:
   redis-data:
-  nginx_logs:
+  nginx-logs:
 networks:
   app-network:
