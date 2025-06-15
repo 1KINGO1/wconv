@@ -20,9 +20,11 @@ async function bootstrap() {
     }),
   )
 
+  const allowedOrigins = configurationService.getOrThrow<string>('CORS').split(',');
+
   app.use(
     cors({
-      origin: [configurationService.getOrThrow<string>('CORS')],
+      origin: allowedOrigins,
       credentials: true,
     }),
   )
