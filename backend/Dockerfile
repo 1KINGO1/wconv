@@ -43,7 +43,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY package*.json ./
 
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci && npm cache clean --force
 
 COPY . .
 
