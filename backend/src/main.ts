@@ -5,9 +5,10 @@ import { CoreModule } from './core/core.module'
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
+import { NestExpressApplication } from '@nestjs/platform-express'
 
 async function bootstrap() {
-  const app = await NestFactory.create(CoreModule)
+  const app = await NestFactory.create<NestExpressApplication>(CoreModule)
   const configurationService = app.get(ConfigService)
 
   app.setGlobalPrefix('/api')
@@ -20,8 +21,12 @@ async function bootstrap() {
     }),
   )
 
-  const allowedOrigins = configurationService.getOrThrow<string>('CORS').split(',');
+  const isProduction = configurationService.get<boolean>('NODE_ENV')
+  if (isProduction) {
+    app.set('trust proxy', 1)
+  }
 
+  const allowedOrigins = configurationService.getOrThrow<string>('CORS').split(',');
   app.use(
     cors({
       origin: allowedOrigins,
