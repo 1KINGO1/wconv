@@ -35,8 +35,7 @@ export function DashboardFirstTimeScreen() {
             'JPG → PNG, WEBP, AVIF, GIF',
             'WEBP → PNG, JPG, AVIF, GIF',
             'AVIF → PNG, JPG, WEBP, GIF',
-            'TIFF → PNG, JPG, WEBP, GIF',
-            'GIF → PNG, JPG, WEBP, TIFF'
+            'GIF → PNG, JPG, WEBP, AVIF'
           ]}
         />
         <FileFormatCard
